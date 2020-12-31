@@ -22,8 +22,10 @@ namespace Demo.Persistence
             // seed
             modelBuilder.Entity<Company>().HasData(new[] { new Company() { id=1, name = "Company1" } });
             
-            modelBuilder.Entity<Product>().HasData(new[] { new Product() {id=1, name="product 1", production = DateTime.Now, CompanyId=1 },
-            new Product() {id=2, name="product 2", production = DateTime.Now, CompanyId=1 }});
+            modelBuilder.Entity<Product>().HasData(new[] { 
+                new Product() {id=1, name="product 1", production = DateTime.Now, CompanyId=1, ExpiresInDays=365 },
+                new Product() {id=2, name="product 2", production = DateTime.Now, CompanyId=1, ExpiresInDays=7 }
+            });
             
             
             base.OnModelCreating(modelBuilder);

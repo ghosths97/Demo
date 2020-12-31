@@ -42,6 +42,14 @@ namespace Demo.Controllers
         }
 
 
+        [HttpGet]
+        [Route("All")]
+        public IActionResult All()
+        {
+            return Ok( _productService.GetAll());
+        
+        }
+
         [HttpPost]
         //[Authorize(Roles = "admin")]
         public IActionResult Post(Product product)

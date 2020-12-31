@@ -1,0 +1,60 @@
+﻿@page
+@model IndexModel
+@{
+    ViewData["Title"] = "Home page";
+}
+
+
+<div class="text-center">
+    <h1 class="display-4">
+        @Html.LabelFor(m => m.pageName)
+
+    </h1>
+    
+
+    <table class="table table-striped">
+
+        <thead>
+
+            <tr>
+                <td>
+                    Name
+                </td>
+                <td>
+                    Company id
+                </td>
+                <td>
+                    Production Date
+                </td>
+                <td>
+                    ExpiresInDays
+                </td>
+                <td>
+                    Expiry
+                </td>
+            </tr>
+
+        </thead>
+
+
+        @foreach (var item in Model.Products)
+        {
+        <tr>
+
+            <td>@item.name</td>
+            <td>@item.companyId</td>
+
+            <td>@item.production</td>
+
+            <td>@item.expiresInDays</td>
+
+            <td>@item.ExpiryDate()</td>
+
+        </tr>
+        }
+
+    </table>
+
+</div>
+
+

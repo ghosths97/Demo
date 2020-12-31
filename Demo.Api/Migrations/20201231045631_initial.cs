@@ -30,6 +30,7 @@ namespace Demo.Migrations
                     name = table.Column<string>(type: "nvarchar(10)", maxLength: 10, nullable: true),
                     production = table.Column<DateTime>(type: "datetime2", nullable: false),
                     CompanyId = table.Column<int>(type: "int", nullable: false),
+                    ExpiresInDays = table.Column<int>(type: "int", nullable: false),
                     Created = table.Column<DateTime>(type: "datetime2", nullable: false)
                 },
                 constraints: table =>
@@ -46,17 +47,17 @@ namespace Demo.Migrations
             migrationBuilder.InsertData(
                 table: "Companies",
                 columns: new[] { "id", "Created", "name" },
-                values: new object[] { 1, new DateTime(2020, 12, 29, 11, 34, 7, 848, DateTimeKind.Local).AddTicks(8229), "Company1" });
+                values: new object[] { 1, new DateTime(2020, 12, 31, 10, 26, 30, 74, DateTimeKind.Local).AddTicks(6680), "Company1" });
 
             migrationBuilder.InsertData(
                 table: "Products",
-                columns: new[] { "id", "CompanyId", "Created", "name", "production" },
-                values: new object[] { 1, 1, new DateTime(2020, 12, 29, 11, 34, 7, 851, DateTimeKind.Local).AddTicks(2863), "product 1", new DateTime(2020, 12, 29, 11, 34, 7, 851, DateTimeKind.Local).AddTicks(3491) });
+                columns: new[] { "id", "CompanyId", "Created", "ExpiresInDays", "name", "production" },
+                values: new object[] { 1, 1, new DateTime(2020, 12, 31, 10, 26, 30, 80, DateTimeKind.Local).AddTicks(5098), 365, "product 1", new DateTime(2020, 12, 31, 10, 26, 30, 80, DateTimeKind.Local).AddTicks(6542) });
 
             migrationBuilder.InsertData(
                 table: "Products",
-                columns: new[] { "id", "CompanyId", "Created", "name", "production" },
-                values: new object[] { 2, 1, new DateTime(2020, 12, 29, 11, 34, 7, 851, DateTimeKind.Local).AddTicks(4608), "product 2", new DateTime(2020, 12, 29, 11, 34, 7, 851, DateTimeKind.Local).AddTicks(4617) });
+                columns: new[] { "id", "CompanyId", "Created", "ExpiresInDays", "name", "production" },
+                values: new object[] { 2, 1, new DateTime(2020, 12, 31, 10, 26, 30, 81, DateTimeKind.Local).AddTicks(494), 7, "product 2", new DateTime(2020, 12, 31, 10, 26, 30, 81, DateTimeKind.Local).AddTicks(518) });
 
             migrationBuilder.CreateIndex(
                 name: "IX_Products_CompanyId",

@@ -19,7 +19,7 @@ namespace Demo.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("ProductVersion", "5.0.1");
 
-            modelBuilder.Entity("Demo.Company", b =>
+            modelBuilder.Entity("Demo.Models.Company", b =>
                 {
                     b.Property<int>("id")
                         .ValueGeneratedOnAdd()
@@ -41,12 +41,12 @@ namespace Demo.Migrations
                         new
                         {
                             id = 1,
-                            Created = new DateTime(2020, 12, 29, 11, 34, 7, 848, DateTimeKind.Local).AddTicks(8229),
+                            Created = new DateTime(2020, 12, 31, 10, 26, 30, 74, DateTimeKind.Local).AddTicks(6680),
                             name = "Company1"
                         });
                 });
 
-            modelBuilder.Entity("Demo.Product", b =>
+            modelBuilder.Entity("Demo.Models.Product", b =>
                 {
                     b.Property<int>("id")
                         .ValueGeneratedOnAdd()
@@ -58,6 +58,9 @@ namespace Demo.Migrations
 
                     b.Property<DateTime>("Created")
                         .HasColumnType("datetime2");
+
+                    b.Property<int>("ExpiresInDays")
+                        .HasColumnType("int");
 
                     b.Property<string>("name")
                         .HasMaxLength(10)
@@ -77,30 +80,32 @@ namespace Demo.Migrations
                         {
                             id = 1,
                             CompanyId = 1,
-                            Created = new DateTime(2020, 12, 29, 11, 34, 7, 851, DateTimeKind.Local).AddTicks(2863),
+                            Created = new DateTime(2020, 12, 31, 10, 26, 30, 80, DateTimeKind.Local).AddTicks(5098),
+                            ExpiresInDays = 365,
                             name = "product 1",
-                            production = new DateTime(2020, 12, 29, 11, 34, 7, 851, DateTimeKind.Local).AddTicks(3491)
+                            production = new DateTime(2020, 12, 31, 10, 26, 30, 80, DateTimeKind.Local).AddTicks(6542)
                         },
                         new
                         {
                             id = 2,
                             CompanyId = 1,
-                            Created = new DateTime(2020, 12, 29, 11, 34, 7, 851, DateTimeKind.Local).AddTicks(4608),
+                            Created = new DateTime(2020, 12, 31, 10, 26, 30, 81, DateTimeKind.Local).AddTicks(494),
+                            ExpiresInDays = 7,
                             name = "product 2",
-                            production = new DateTime(2020, 12, 29, 11, 34, 7, 851, DateTimeKind.Local).AddTicks(4617)
+                            production = new DateTime(2020, 12, 31, 10, 26, 30, 81, DateTimeKind.Local).AddTicks(518)
                         });
                 });
 
-            modelBuilder.Entity("Demo.Product", b =>
+            modelBuilder.Entity("Demo.Models.Product", b =>
                 {
-                    b.HasOne("Demo.Company", null)
+                    b.HasOne("Demo.Models.Company", null)
                         .WithMany("Products")
                         .HasForeignKey("CompanyId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("Demo.Company", b =>
+            modelBuilder.Entity("Demo.Models.Company", b =>
                 {
                     b.Navigation("Products");
                 });
