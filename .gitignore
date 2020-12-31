@@ -1,0 +1,8 @@
+/.git
+/.vs
+/Demo.Web/bin
+/Demo.Web/obj
+/Demo.Tests/bin
+/Demo.Tests/obj
+/Demo.Api/bin
+/Demo.Api/obj
