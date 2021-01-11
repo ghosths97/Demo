@@ -6,3 +6,7 @@
 /Demo.Tests/obj
 /Demo.Api/bin
 /Demo.Api/obj
+/Demo.Common/bin
+/Demo.Common/obj
+/Demo.SPA/bin
+/Demo.SPA/obj

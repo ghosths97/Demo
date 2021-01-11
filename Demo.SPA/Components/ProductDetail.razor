@@ -1,0 +1,34 @@
+﻿<EditForm Model="product">
+
+    <DataAnnotationsValidator />
+    <ValidationSummary />
+
+    <div class="form-group">
+        <label for="exampleInputEmail1">Name</label>
+        <input type="text" @bind-value="product.name" class="form-control" placeholder="Product Name">
+    </div>
+
+    <div class="form-group">
+        <label for="exampleInputEmail1">Production Date</label>
+        <input type="date" @bind-value="product.production" class="form-control" placeholder="Production Date">
+    </div>
+
+    <div class="form-group">
+        <label for="exampleInputEmail1">Expires In Days</label>
+        <input type="number" @bind-value="product.expiresInDays" class="form-control" placeholder="Expires In Days">
+    </div>
+
+    <div class="form-group">
+        <label for="exampleInputEmail1">Company ID</label>
+        <input type="number" @bind-value="product.companyId" class="form-control" placeholder="Company ID">
+    </div>
+
+</EditForm>
+
+
+@code {
+
+    [Parameter]
+    public Models.ProductDto product { get; set; }
+    
+}

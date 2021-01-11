@@ -1,0 +1,51 @@
+﻿<Demo.SPA.Components.Loader Visible="@loading"></Demo.SPA.Components.Loader>
+
+<div class="row my-2">
+    <div class="col-6">
+        <h3>All Products</h3>
+    </div>
+    <div class="col-6">
+        <a href="products/add" class="btn btn-primary float-right">Add New</a>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-12">
+        @if (products == null)
+        {
+            <p><em>Loading...</em></p>
+        }
+        else
+        {
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th></th>
+                        <th>ID</th>
+                        <th>Name</th>
+                        <th>Production Date</th>
+                        <th>Expires In Days</th>
+                        <th>Expiry Date</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var product in products)
+                    {
+                        <tr>
+                            <td>                                
+                                <a class="nav-link" href="products/detail/@product.id">
+                                    <span class="oi oi-eye" aria-hidden="true"></span> View
+                                </a>
+                            </td>
+                            <td>@product.id</td>
+                            <td>@product.name</td>
+                            <td>@product.production.ToShortDateString()</td>
+                            <td>@product.expiresInDays</td>
+                            <td>@product.ExpiryDate().ToShortDateString()</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        }
+    </div>
+</div>

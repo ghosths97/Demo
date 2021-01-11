@@ -52,6 +52,8 @@ namespace Demo.Services
             var p = _dbContext.Products.Where(p => p.id == product.id).FirstOrDefault();
             p.name = product.name;
             p.production = product.production;
+            p.ExpiresInDays = product.ExpiresInDays;
+            p.CompanyId = product.CompanyId;
 
             _dbContext.SaveChanges();
         }

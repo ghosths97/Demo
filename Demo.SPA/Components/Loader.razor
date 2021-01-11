@@ -1,0 +1,12 @@
+﻿@if (Visible)
+{
+<div class="loader">
+    <div class="loader-spinner spinner-border text-success"></div>
+</div>
+}
+
+@code{
+
+    [Parameter]
+    public bool Visible { get; set; }
+}

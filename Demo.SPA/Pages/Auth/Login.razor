@@ -1,0 +1,39 @@
+﻿@page "/auth/login"
+
+<div class="row">
+    <div class="col-12">
+        <h2>Login to your account</h2>
+    </div>
+
+    <div class="col-8">
+        <EditForm Model="loginRequest" OnValidSubmit="LoginUser" >
+
+            <DataAnnotationsValidator />
+            @*<ValidationSummary  />*@
+
+            <div class="form-group">
+                <label for="exampleInputEmail1">Email address</label>
+                <input type="email" @bind-value="loginRequest.Email" autocomplete="username" class="form-control" aria-describedby="emailHelp" placeholder="Enter email">
+                <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+                <ValidationMessage For="@(()=>loginRequest.Email)"/>
+            </div>
+
+            <div class="form-group">
+                <label for="exampleInputPassword1">Password</label>
+                <input type="password" @bind-value="loginRequest.Password" autocomplete="current-password" class="form-control" placeholder="Password">
+                <ValidationMessage For="@(()=>loginRequest.Password)" />
+            </div>
+
+            <div class="form-group form-check">
+                <input type="checkbox" class="form-check-input" id="exampleCheck1">
+                <label class="form-check-label" for="exampleCheck1">Keep me logged in</label>
+            </div>
+            
+            <button type="submit" class="btn btn-primary">Submit</button>
+
+            <a href="/auth/register">Create an Account</a>
+
+        </EditForm>
+
+    </div>
+</div>

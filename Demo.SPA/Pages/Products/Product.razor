@@ -1,0 +1,30 @@
+﻿<Demo.SPA.Components.Loader Visible="@IsBusy"></Demo.SPA.Components.Loader>
+
+@page "/products/detail/{id:int}"
+
+<div class="row my-2">
+    <div class="col-12">
+        <h3>Product</h3>
+    </div>
+</div>
+
+@if (product != null)
+{
+    <div class="row my-2">
+        <div class="col-8">            
+            <Demo.SPA.Components.ProductDetail product="product"></Demo.SPA.Components.ProductDetail>
+        </div>
+    </div>
+
+
+    <div class="row my-2">
+        <div class="col-8">
+            <hr />
+            <button class="btn btn-primary" @onclick="Save">Update</button>
+            <a class="btn btn-light" href="products">Back To Listing</a>
+
+            <button class="btn btn-danger float-right" @onclick="Delete">Delete</button>
+        </div>
+    </div>
+}
+

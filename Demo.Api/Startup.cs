@@ -1,25 +1,18 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
+using Demo.Api.Models.Identity;
 using Demo.Config;
 using Demo.Filters;
 using Demo.Middlewares;
 using Demo.Persistence;
 using Demo.Services;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.HttpsPolicy;
-using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 
@@ -46,6 +39,7 @@ namespace Demo
             services.AddSingleton("Global");
             //services.AddSingleton<IProductService, ProductService>();
 
+            services.AddCors();
 
             services.AddControllers(Config=>
             {
@@ -69,6 +63,10 @@ namespace Demo
             });
 
             services.AddDbContext<DemoDbContext>(options => { options.UseSqlServer(Configuration.GetConnectionString("DemoConnection")); });
+            // Identity
+            services.AddIdentity<User, Role>()
+                .AddDefaultTokenProviders()
+                .AddEntityFrameworkStores<DemoDbContext>();
 
             services.AddScoped<IProductService, SqlProductService>();
 
@@ -114,7 +112,11 @@ namespace Demo
 
             app.UseHttpsRedirection();
 
-           
+            app.UseCors(configurePolicy =>
+                configurePolicy.AllowAnyHeader()
+                .AllowAnyMethod()
+                .AllowAnyOrigin()
+            );
 
             app.UseRouting();
 

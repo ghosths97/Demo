@@ -50,6 +50,23 @@ namespace Demo.Controllers
         
         }
 
+        [HttpPut]
+        //[Authorize(Roles = "admin")]
+        public IActionResult Put(Product product)
+        {
+            var p = _productService.GetProduct(product.id);
+            if (p == null)
+            {
+                _logger.LogError("Product does not exist for {productID}", product.id);
+                throw new DemoException("Product does not exist", System.Net.HttpStatusCode.BadRequest);
+            }
+
+            _productService.Update(product);
+            _logger.LogInformation("Product Updated {productID}", product.id);
+            return Ok(product);
+        }
+
+
         [HttpPost]
         //[Authorize(Roles = "admin")]
         public IActionResult Post(Product product)
@@ -68,5 +85,24 @@ namespace Demo.Controllers
 
             
         }
+
+        [HttpDelete]
+        //[Authorize(Roles = "admin")]
+        public IActionResult Delete(int productID)
+        {
+            var p = _productService.GetProduct(productID);
+            if (p == null)
+            {
+                _logger.LogError("Product does not exist for {productID}", productID);
+                throw new DemoException("Product does not exist", System.Net.HttpStatusCode.BadRequest);
+            }
+            //var p = product;
+            _productService.Delete(productID);
+            _logger.LogInformation("Product Deleted {productID}", productID);
+            return Ok(productID);
+
+
+        }
+
     }
 }
