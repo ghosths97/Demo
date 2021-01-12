@@ -42,12 +42,27 @@ namespace Demo.Controllers
         public async Task<IActionResult> Auth(LoginRequest login)
         {
             _logger.LogDebug("logging in:" + login.Email);
-            var result = await _signInManager.PasswordSignInAsync(login.Email, login.Password, false, lockoutOnFailure: false);
+
+            var user = await _userManager.FindByEmailAsync(login.Email);
+
+            if (user == null)
+            {
+                _logger.LogDebug("logging failed");
+                throw new DemoException("Wrong Username password", System.Net.HttpStatusCode.Unauthorized);
+            }
+
+            var result = await _signInManager.CheckPasswordSignInAsync(user, login.Password, false);
             string token = String.Empty;
             if(result.Succeeded)
             {
+                var userRoleNames = await _userManager.GetRolesAsync(user);
+                var userRoles = _roleManager.Roles.Where(x => userRoleNames.Contains(x.Name)).FirstOrDefault();
+                var roleClaims = await _roleManager.GetClaimsAsync(userRoles);
+                roleClaims.Add(new Claim(ClaimTypes.Email, user.Email.ToString()));
+                roleClaims.Add(new Claim("Id", user.Id));
+
+                token = GenerateJwtToken(user, roleClaims);
                 _logger.LogDebug("logging success");
-                token = GetToken(login);
             }
             else
             {
@@ -56,7 +71,47 @@ namespace Demo.Controllers
             }
 
             return Ok(new LoginResponse() { Username = login.Email, Token = token });
+        }
+        
+        [HttpPost]
+        [Route("/register")]
+        public async Task<IActionResult> Register(RegisterRequest registerRequest)
+        {
+            if (ModelState.IsValid)
+            {
+                User user = new User()
+                {
+                    Email = registerRequest.Email,
+                    UserName = registerRequest.Email,
+                    Name = registerRequest.Name,
+                    PhoneNumber = registerRequest.PhoneNumber
+                };
 
+                var result = await _userManager.CreateAsync(user, registerRequest.Password);
+                if (result.Succeeded)
+                {
+                    await _userManager.AddToRoleAsync(user, "User");
+                }
+            }
+
+            return Created("/login", new RegisterResponse() { Message = "User created successfully" });
+        }
+
+
+        private string GenerateJwtToken(User user, IList<Claim> claims)
+        {
+            // generate token that is valid for 7 days
+            var tokenHandler = new JwtSecurityTokenHandler();
+            var key = Encoding.ASCII.GetBytes("a_very_long_key_to_encrypt");
+
+            var tokenDescriptor = new SecurityTokenDescriptor
+            {
+                Subject = new ClaimsIdentity(claims),
+                Expires = DateTime.UtcNow.AddDays(7),
+                SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
+            };
+            var token = tokenHandler.CreateToken(tokenDescriptor);
+            return tokenHandler.WriteToken(token);
         }
 
         private string GetToken(LoginRequest login)
@@ -84,28 +139,5 @@ namespace Demo.Controllers
             return new JwtSecurityTokenHandler().WriteToken(token);
         }
 
-        [HttpPost]
-        [Route("/register")]
-        public async Task<IActionResult> Register(RegisterRequest registerRequest)
-        {
-            if (ModelState.IsValid)
-            {
-                User user = new User()
-                {
-                    Email = registerRequest.Email,
-                    UserName = registerRequest.Email,
-                    Name = registerRequest.Name,
-                    PhoneNumber = registerRequest.PhoneNumber
-                };
-
-                var result = await _userManager.CreateAsync(user, registerRequest.Password);
-                if (result.Succeeded)
-                {
-                    await _userManager.AddToRoleAsync(user, "User");
-                }
-            }
-
-            return Created("/login", new RegisterResponse() { Message = "User created successfully" });
-        }
     }
 }

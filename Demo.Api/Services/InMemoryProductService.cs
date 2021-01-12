@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace Demo.Services
 {
-    public class ProductService : IProductService
+    public class InMemoryProductService : IProductService
     {
-        public ProductService()
+        public InMemoryProductService()
         {
             Products = new List<Product>();
         }

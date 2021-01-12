@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using System.Text.Json;
 using System.Text;
 
-namespace Demo.SPA.Util
+namespace Demo.SPA.Helpers
 {
     public class JsonContent : StringContent
     {

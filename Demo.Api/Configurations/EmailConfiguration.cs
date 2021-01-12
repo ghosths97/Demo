@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Demo.Config
+namespace Demo.Configurations
 {
-    public class EmailConfig
+    public class EmailConfiguration
     {
         public string From { get; set; }
         public bool Test { get; set; }

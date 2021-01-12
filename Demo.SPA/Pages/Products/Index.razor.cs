@@ -1,5 +1,6 @@
 ﻿using Demo.SPA.Models;
 using Demo.SPA.Services.Product;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Components;
 using System;
 using System.Collections.Generic;
@@ -9,6 +10,7 @@ using System.Threading.Tasks;
 namespace Demo.SPA.Pages.Products
 {
     [Route("products")]
+    [Authorize]
     public partial class Index
     {
         [Inject]

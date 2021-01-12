@@ -5,11 +5,11 @@ using System.Net.Http;
 using System.Text.Json;
 using System.Threading.Tasks;
 
-namespace Demo.SPA.Util
+namespace Demo.SPA.Helpers
 {
     public static class JsonUtility
     {
-        public static async Task<T> GetJsonAsync<T>(this HttpClient httpClient, string requestUri)
+        public static async Task<T> GetJsonCustomAsync<T>(this HttpClient httpClient, string requestUri)
         {
             var response = await httpClient.GetAsync(requestUri);
             response.EnsureSuccessStatusCode();

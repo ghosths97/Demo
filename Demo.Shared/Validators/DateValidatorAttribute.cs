@@ -6,6 +6,9 @@ using System.Threading.Tasks;
 
 namespace Demo.Validators
 {
+    /// <summary>
+    /// Validate Date to be less than DateTime.now
+    /// </summary>
     public class DateValidatorAttribute : ValidationAttribute
     {
         public override bool IsValid(object value)

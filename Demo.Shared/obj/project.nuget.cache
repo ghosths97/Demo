@@ -1,8 +1,15 @@
 {
   "version": 2,
-  "dgSpecHash": "1TTX4G7eynuBbCfR3+pUcFg6BJXSkRNCqSbcivYBjxon2fnq2cRT4eOsCLuKc95DQh05CkFJF8LClGmMDZu3AQ==",
+  "dgSpecHash": "kuLS0lrQG9asKChoPrQaAkvB/DOGfege9iuCRDhHAMbQa27AIb2SmAqqU5jnX3r4tInw/c+F90S+9w+11GkscA==",
   "success": true,
   "projectFilePath": "C:\\Users\\Daffolap-917\\Desktop\\Demo\\Demo.Shared\\Demo.Shared.csproj",
-  "expectedPackageFiles": [],
+  "expectedPackageFiles": [
+    "C:\\Users\\Daffolap-917\\.nuget\\packages\\microsoft.aspnetcore.authorization\\5.0.1\\microsoft.aspnetcore.authorization.5.0.1.nupkg.sha512",
+    "C:\\Users\\Daffolap-917\\.nuget\\packages\\microsoft.aspnetcore.metadata\\5.0.1\\microsoft.aspnetcore.metadata.5.0.1.nupkg.sha512",
+    "C:\\Users\\Daffolap-917\\.nuget\\packages\\microsoft.extensions.dependencyinjection.abstractions\\5.0.0\\microsoft.extensions.dependencyinjection.abstractions.5.0.0.nupkg.sha512",
+    "C:\\Users\\Daffolap-917\\.nuget\\packages\\microsoft.extensions.logging.abstractions\\5.0.0\\microsoft.extensions.logging.abstractions.5.0.0.nupkg.sha512",
+    "C:\\Users\\Daffolap-917\\.nuget\\packages\\microsoft.extensions.options\\5.0.0\\microsoft.extensions.options.5.0.0.nupkg.sha512",
+    "C:\\Users\\Daffolap-917\\.nuget\\packages\\microsoft.extensions.primitives\\5.0.0\\microsoft.extensions.primitives.5.0.0.nupkg.sha512"
+  ],
   "logs": []
 }

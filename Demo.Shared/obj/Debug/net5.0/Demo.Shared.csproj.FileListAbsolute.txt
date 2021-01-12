@@ -14,7 +14,6 @@ C:\Users\Daffolap-917\Desktop\Demo\Demo.Shared\bin\Debug\net5.0\Demo.Shared.deps
 C:\Users\Daffolap-917\Desktop\Demo\Demo.Shared\bin\Debug\net5.0\Demo.Shared.dll
 C:\Users\Daffolap-917\Desktop\Demo\Demo.Shared\bin\Debug\net5.0\ref\Demo.Shared.dll
 C:\Users\Daffolap-917\Desktop\Demo\Demo.Shared\bin\Debug\net5.0\Demo.Shared.pdb
-C:\Users\Daffolap-917\Desktop\Demo\Demo.Shared\obj\Debug\net5.0\Demo.Shared.csprojAssemblyReference.cache
 C:\Users\Daffolap-917\Desktop\Demo\Demo.Shared\obj\Debug\net5.0\Demo.Shared.GeneratedMSBuildEditorConfig.editorconfig
 C:\Users\Daffolap-917\Desktop\Demo\Demo.Shared\obj\Debug\net5.0\Demo.Shared.AssemblyInfoInputs.cache
 C:\Users\Daffolap-917\Desktop\Demo\Demo.Shared\obj\Debug\net5.0\Demo.Shared.AssemblyInfo.cs

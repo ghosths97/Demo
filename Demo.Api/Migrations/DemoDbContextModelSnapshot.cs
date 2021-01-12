@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
-namespace Demo.Migrations
+namespace Demo.Api.Migrations
 {
     [DbContext(typeof(DemoDbContext))]
     partial class DemoDbContextModelSnapshot : ModelSnapshot
@@ -87,6 +87,55 @@ namespace Demo.Migrations
                     b.ToTable("AspNetUsers");
                 });
 
+            modelBuilder.Entity("Demo.Api.Models.Security.Permission", b =>
+                {
+                    b.Property<long>("PermissionId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint")
+                        .UseIdentityColumn();
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
+
+                    b.HasKey("PermissionId");
+
+                    b.ToTable("Permissions");
+
+                    b.HasData(
+                        new
+                        {
+                            PermissionId = 1L,
+                            Name = "Login"
+                        },
+                        new
+                        {
+                            PermissionId = 2L,
+                            Name = "Users"
+                        },
+                        new
+                        {
+                            PermissionId = 3L,
+                            Name = "Role"
+                        },
+                        new
+                        {
+                            PermissionId = 4L,
+                            Name = "Permissions"
+                        },
+                        new
+                        {
+                            PermissionId = 5L,
+                            Name = "AddProduct"
+                        },
+                        new
+                        {
+                            PermissionId = 6L,
+                            Name = "EditProduct"
+                        });
+                });
+
             modelBuilder.Entity("Demo.Models.Company", b =>
                 {
                     b.Property<int>("id")
@@ -109,7 +158,7 @@ namespace Demo.Migrations
                         new
                         {
                             id = 1,
-                            Created = new DateTime(2021, 1, 11, 10, 46, 37, 835, DateTimeKind.Local).AddTicks(5681),
+                            Created = new DateTime(2021, 1, 11, 19, 59, 42, 144, DateTimeKind.Local).AddTicks(6280),
                             name = "Company1"
                         });
                 });
@@ -148,19 +197,19 @@ namespace Demo.Migrations
                         {
                             id = 1,
                             CompanyId = 1,
-                            Created = new DateTime(2021, 1, 11, 10, 46, 37, 838, DateTimeKind.Local).AddTicks(3838),
+                            Created = new DateTime(2021, 1, 11, 19, 59, 42, 148, DateTimeKind.Local).AddTicks(517),
                             ExpiresInDays = 365,
                             name = "product 1",
-                            production = new DateTime(2021, 1, 11, 10, 46, 37, 838, DateTimeKind.Local).AddTicks(4607)
+                            production = new DateTime(2021, 1, 11, 19, 59, 42, 148, DateTimeKind.Local).AddTicks(1396)
                         },
                         new
                         {
                             id = 2,
                             CompanyId = 1,
-                            Created = new DateTime(2021, 1, 11, 10, 46, 37, 838, DateTimeKind.Local).AddTicks(6427),
+                            Created = new DateTime(2021, 1, 11, 19, 59, 42, 148, DateTimeKind.Local).AddTicks(3679),
                             ExpiresInDays = 7,
                             name = "product 2",
-                            production = new DateTime(2021, 1, 11, 10, 46, 37, 838, DateTimeKind.Local).AddTicks(6438)
+                            production = new DateTime(2021, 1, 11, 19, 59, 42, 148, DateTimeKind.Local).AddTicks(3694)
                         });
                 });
 
@@ -213,6 +262,43 @@ namespace Demo.Migrations
                     b.HasIndex("RoleId");
 
                     b.ToTable("AspNetRoleClaims");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            ClaimType = "permission",
+                            ClaimValue = "Login",
+                            RoleId = "84e7b6dc-7889-415d-8198-799f263bfb9d"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            ClaimType = "permission",
+                            ClaimValue = "Users",
+                            RoleId = "a51fba13-a9c0-43e4-b9af-56448c4942fc"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            ClaimType = "permission",
+                            ClaimValue = "Permissions",
+                            RoleId = "a51fba13-a9c0-43e4-b9af-56448c4942fc"
+                        },
+                        new
+                        {
+                            Id = 4,
+                            ClaimType = "permission",
+                            ClaimValue = "AddProduct",
+                            RoleId = "a51fba13-a9c0-43e4-b9af-56448c4942fc"
+                        },
+                        new
+                        {
+                            Id = 5,
+                            ClaimType = "permission",
+                            ClaimValue = "EditProduct",
+                            RoleId = "a51fba13-a9c0-43e4-b9af-56448c4942fc"
+                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
@@ -304,15 +390,17 @@ namespace Demo.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "6ad9c51b-f95a-4a8b-8096-80f471b33776",
-                            ConcurrencyStamp = "f0e70545-0463-4660-879b-f0d9d04eab63",
-                            Name = "User"
+                            Id = "84e7b6dc-7889-415d-8198-799f263bfb9d",
+                            ConcurrencyStamp = "84e7b6dc-7889-415d-8198-799f263bfb9d",
+                            Name = "User",
+                            NormalizedName = "USER"
                         },
                         new
                         {
-                            Id = "a52c3cfd-7784-4e1a-bb1f-bafb5a497cb8",
-                            ConcurrencyStamp = "949a7dbd-a5ec-4087-8456-80519b3582a6",
-                            Name = "Admin"
+                            Id = "a51fba13-a9c0-43e4-b9af-56448c4942fc",
+                            ConcurrencyStamp = "a51fba13-a9c0-43e4-b9af-56448c4942fc",
+                            Name = "Admin",
+                            NormalizedName = "ADMIN"
                         });
                 });
 

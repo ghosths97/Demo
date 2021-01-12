@@ -1,9 +1,9 @@
 ﻿using System;
 using Microsoft.EntityFrameworkCore.Migrations;
 
-namespace Demo.Migrations
+namespace Demo.Api.Migrations
 {
-    public partial class AddIdentity : Migration
+    public partial class all : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -26,6 +26,7 @@ namespace Demo.Migrations
                 columns: table => new
                 {
                     Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     UserName = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
                     NormalizedUserName = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
                     Email = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
@@ -44,6 +45,33 @@ namespace Demo.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_AspNetUsers", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Companies",
+                columns: table => new
+                {
+                    id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    name = table.Column<string>(type: "nvarchar(10)", maxLength: 10, nullable: true),
+                    Created = table.Column<DateTime>(type: "datetime2", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Companies", x => x.id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Permissions",
+                columns: table => new
+                {
+                    PermissionId = table.Column<long>(type: "bigint", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Name = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Permissions", x => x.PermissionId);
                 });
 
             migrationBuilder.CreateTable(
@@ -169,45 +197,85 @@ namespace Demo.Migrations
                         onDelete: ReferentialAction.Cascade);
                 });
 
+            migrationBuilder.CreateTable(
+                name: "Products",
+                columns: table => new
+                {
+                    id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    name = table.Column<string>(type: "nvarchar(10)", maxLength: 10, nullable: true),
+                    production = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    CompanyId = table.Column<int>(type: "int", nullable: false),
+                    ExpiresInDays = table.Column<int>(type: "int", nullable: false),
+                    Created = table.Column<DateTime>(type: "datetime2", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Products", x => x.id);
+                    table.ForeignKey(
+                        name: "FK_Products_Companies_CompanyId",
+                        column: x => x.CompanyId,
+                        principalTable: "Companies",
+                        principalColumn: "id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
             migrationBuilder.InsertData(
                 table: "AspNetRoles",
                 columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
                 values: new object[,]
                 {
-                    { "fd3413ef-dd10-4a8a-941c-bfed0f636085", "fcb0513c-f2da-4dae-a74f-b81d4f3fd6b3", "User", null },
-                    { "2f362d09-3811-4fbe-a7e0-4263d968b0af", "00bd809e-be22-4b77-9f55-02e4c3956c00", "Admin", null }
+                    { "84e7b6dc-7889-415d-8198-799f263bfb9d", "84e7b6dc-7889-415d-8198-799f263bfb9d", "User", "USER" },
+                    { "a51fba13-a9c0-43e4-b9af-56448c4942fc", "a51fba13-a9c0-43e4-b9af-56448c4942fc", "Admin", "ADMIN" }
                 });
 
-            migrationBuilder.UpdateData(
+            migrationBuilder.InsertData(
                 table: "Companies",
-                keyColumn: "id",
-                keyValue: 1,
-                column: "Created",
-                value: new DateTime(2021, 1, 10, 18, 17, 35, 789, DateTimeKind.Local).AddTicks(6445));
+                columns: new[] { "id", "Created", "name" },
+                values: new object[] { 1, new DateTime(2021, 1, 11, 19, 59, 42, 144, DateTimeKind.Local).AddTicks(6280), "Company1" });
 
-            migrationBuilder.UpdateData(
-                table: "Products",
-                keyColumn: "id",
-                keyValue: 1,
-                columns: new[] { "Created", "production" },
-                values: new object[] { new DateTime(2021, 1, 10, 18, 17, 35, 792, DateTimeKind.Local).AddTicks(5577), new DateTime(2021, 1, 10, 18, 17, 35, 792, DateTimeKind.Local).AddTicks(6312) });
+            migrationBuilder.InsertData(
+                table: "Permissions",
+                columns: new[] { "PermissionId", "Name" },
+                values: new object[,]
+                {
+                    { 1L, "Login" },
+                    { 2L, "Users" },
+                    { 3L, "Role" },
+                    { 4L, "Permissions" },
+                    { 5L, "AddProduct" },
+                    { 6L, "EditProduct" }
+                });
 
-            migrationBuilder.UpdateData(
+            migrationBuilder.InsertData(
+                table: "AspNetRoleClaims",
+                columns: new[] { "Id", "ClaimType", "ClaimValue", "RoleId" },
+                values: new object[,]
+                {
+                    { 1, "permission", "Login", "84e7b6dc-7889-415d-8198-799f263bfb9d" },
+                    { 2, "permission", "Users", "a51fba13-a9c0-43e4-b9af-56448c4942fc" },
+                    { 3, "permission", "Permissions", "a51fba13-a9c0-43e4-b9af-56448c4942fc" },
+                    { 4, "permission", "AddProduct", "a51fba13-a9c0-43e4-b9af-56448c4942fc" },
+                    { 5, "permission", "EditProduct", "a51fba13-a9c0-43e4-b9af-56448c4942fc" }
+                });
+
+            migrationBuilder.InsertData(
                 table: "Products",
-                keyColumn: "id",
-                keyValue: 2,
-                columns: new[] { "Created", "production" },
-                values: new object[] { new DateTime(2021, 1, 10, 18, 17, 35, 792, DateTimeKind.Local).AddTicks(8374), new DateTime(2021, 1, 10, 18, 17, 35, 792, DateTimeKind.Local).AddTicks(8385) });
+                columns: new[] { "id", "CompanyId", "Created", "ExpiresInDays", "name", "production" },
+                values: new object[,]
+                {
+                    { 1, 1, new DateTime(2021, 1, 11, 19, 59, 42, 148, DateTimeKind.Local).AddTicks(517), 365, "product 1", new DateTime(2021, 1, 11, 19, 59, 42, 148, DateTimeKind.Local).AddTicks(1396) },
+                    { 2, 1, new DateTime(2021, 1, 11, 19, 59, 42, 148, DateTimeKind.Local).AddTicks(3679), 7, "product 2", new DateTime(2021, 1, 11, 19, 59, 42, 148, DateTimeKind.Local).AddTicks(3694) }
+                });
 
             migrationBuilder.InsertData(
                 table: "Roles",
                 column: "Id",
-                value: "fd3413ef-dd10-4a8a-941c-bfed0f636085");
-
-            migrationBuilder.InsertData(
-                table: "Roles",
-                column: "Id",
-                value: "2f362d09-3811-4fbe-a7e0-4263d968b0af");
+                values: new object[]
+                {
+                    "84e7b6dc-7889-415d-8198-799f263bfb9d",
+                    "a51fba13-a9c0-43e4-b9af-56448c4942fc"
+                });
 
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetRoleClaims_RoleId",
@@ -247,6 +315,11 @@ namespace Demo.Migrations
                 column: "NormalizedUserName",
                 unique: true,
                 filter: "[NormalizedUserName] IS NOT NULL");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Products_CompanyId",
+                table: "Products",
+                column: "CompanyId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -267,34 +340,22 @@ namespace Demo.Migrations
                 name: "AspNetUserTokens");
 
             migrationBuilder.DropTable(
+                name: "Permissions");
+
+            migrationBuilder.DropTable(
+                name: "Products");
+
+            migrationBuilder.DropTable(
                 name: "Roles");
 
             migrationBuilder.DropTable(
                 name: "AspNetUsers");
 
             migrationBuilder.DropTable(
+                name: "Companies");
+
+            migrationBuilder.DropTable(
                 name: "AspNetRoles");
-
-            migrationBuilder.UpdateData(
-                table: "Companies",
-                keyColumn: "id",
-                keyValue: 1,
-                column: "Created",
-                value: new DateTime(2020, 12, 31, 10, 26, 30, 74, DateTimeKind.Local).AddTicks(6680));
-
-            migrationBuilder.UpdateData(
-                table: "Products",
-                keyColumn: "id",
-                keyValue: 1,
-                columns: new[] { "Created", "production" },
-                values: new object[] { new DateTime(2020, 12, 31, 10, 26, 30, 80, DateTimeKind.Local).AddTicks(5098), new DateTime(2020, 12, 31, 10, 26, 30, 80, DateTimeKind.Local).AddTicks(6542) });
-
-            migrationBuilder.UpdateData(
-                table: "Products",
-                keyColumn: "id",
-                keyValue: 2,
-                columns: new[] { "Created", "production" },
-                values: new object[] { new DateTime(2020, 12, 31, 10, 26, 30, 81, DateTimeKind.Local).AddTicks(494), new DateTime(2020, 12, 31, 10, 26, 30, 81, DateTimeKind.Local).AddTicks(518) });
         }
     }
 }

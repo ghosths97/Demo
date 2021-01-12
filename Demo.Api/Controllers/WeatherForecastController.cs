@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Demo.Config;
+using Demo.Configurations;
 using Demo.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -30,7 +30,7 @@ namespace Demo.Controllers
             IGuidService guidService,
             TestService tService, 
            // IConfiguration config,
-            IOptions<EmailConfig> emailConfig)
+            IOptions<EmailConfiguration> emailConfig)
         {
             _guidService = guidService;
             _tService = tService;
@@ -45,7 +45,7 @@ namespace Demo.Controllers
 
         private IConfiguration _Config { get; }
 
-        private readonly EmailConfig _emailConfig;
+        private readonly EmailConfiguration _emailConfig;
 
         [HttpGet]
         public IEnumerable<WeatherForecast> Get()

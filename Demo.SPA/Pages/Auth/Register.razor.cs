@@ -14,6 +14,9 @@ namespace Demo.SPA.Pages.Auth
         [Inject]
         public AuthenticationService authenticationService { get; set; }
             
+        [Inject]
+        NavigationManager navigationManager { get; set; }
+
         private RegisterRequest registerRequest;
 
         public Register()
@@ -27,7 +30,7 @@ namespace Demo.SPA.Pages.Auth
             
             if (res != null)
             {
-
+                navigationManager.NavigateTo("/auth/login");
             }
         }
     }

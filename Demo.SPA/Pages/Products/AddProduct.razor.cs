@@ -1,13 +1,12 @@
-﻿using Demo.SPA.Services.Product;
+﻿using Demo.Shared.Security;
+using Demo.SPA.Services.Product;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Components;
-using Microsoft.AspNetCore.Components.Forms;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace Demo.SPA.Pages.Products
 {
+    [Authorize(Policy = Permissions.AddProduct)]
     partial class AddProduct
     {
         [Inject]
@@ -22,6 +21,10 @@ namespace Demo.SPA.Pages.Products
             product = new Models.ProductDto();
         }
 
+        /// <summary>
+        /// Save Product
+        /// </summary>
+        /// <returns></returns>
         private async Task Save()
         {
             IsBusy = true;

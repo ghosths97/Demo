@@ -5,8 +5,12 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Folder Include="Helpers\" />
     <Folder Include="Models\Product\" />
-    <Folder Include="Validators\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.Authorization" Version="5.0.1" />
   </ItemGroup>
 
 </Project>

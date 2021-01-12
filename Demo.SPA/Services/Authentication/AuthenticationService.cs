@@ -4,12 +4,12 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Text.Json;
 using System.Net.Http;
-using Demo.SPA.Util;
+using Demo.SPA.Helpers;
 using Demo.Shared.Models.User;
 
 namespace Demo.SPA.Services.Authentication
 {
-    public class AuthenticationService
+    public class AuthenticationService : IAuthenticationService
     {
         private HttpClient _Client { get; }
 
@@ -30,7 +30,7 @@ namespace Demo.SPA.Services.Authentication
             var response = await _Client.PostAsync($"/register", requestJson);
 
             var json = await response.Content.ReadAsStringAsync();
-            
+
             return JsonSerializer.Deserialize<RegisterResponse>(json);
         }
 
@@ -48,7 +48,7 @@ namespace Demo.SPA.Services.Authentication
 
             var requestJson = new JsonContent(request);
             var response = await _Client.PostAsync($"/login", requestJson);
-        
+
             var json = await response.Content.ReadAsStringAsync();
             var result = JsonSerializer.Deserialize<LoginResponse>(json, op);
             return result;

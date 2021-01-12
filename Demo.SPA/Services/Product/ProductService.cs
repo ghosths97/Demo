@@ -1,4 +1,4 @@
-﻿using Demo.SPA.Util;
+﻿using Demo.SPA.Helpers;
 using Demo.SPA.Models;
 using System;
 using System.Collections.Generic;
@@ -6,6 +6,7 @@ using System.Text.Json;
 using System.Net.Http;
 using System.Threading.Tasks;
 using System.Text;
+using System.Net.Http.Json;
 
 namespace Demo.SPA.Services.Product
 {
@@ -20,20 +21,19 @@ namespace Demo.SPA.Services.Product
 
         public async Task<IEnumerable<ProductDto>> GetAllProducts()
         {
-            var response = await _ProductHttpClient.GetJsonAsync<IEnumerable<ProductDto>>("/Product/All");
+            var response = await _ProductHttpClient.GetFromJsonAsync<IEnumerable<ProductDto>>("/Product/All");            
             return response;
         }
 
         public async Task<ProductDto> GetProduct(int ProductId)
         {
-            var response = await _ProductHttpClient.GetJsonAsync<ProductDto>($"/Product?productID={ProductId}");
+            var response = await _ProductHttpClient.GetFromJsonAsync<ProductDto>($"/Product?productID={ProductId}");
             return response;
         }
 
         public async Task<ProductDto> AddProduct(ProductDto Product)
         {
-            var productJson = new JsonContent(Product);
-            var response = await _ProductHttpClient.PostAsync("/Product", productJson);
+            var response = await _ProductHttpClient.PostAsJsonAsync<ProductDto>("/Product", Product);
 
             var json = await response.Content.ReadAsStringAsync();
             var result = JsonSerializer.Deserialize<ProductDto>(json);
@@ -42,7 +42,7 @@ namespace Demo.SPA.Services.Product
 
         public async Task<ProductDto> UpdateProduct(ProductDto Product)
         {
-            var productJson = new JsonContent(Product);
+            var productJson = new Helpers.JsonContent(Product);
             var response = await _ProductHttpClient.PutAsync("/Product", productJson);
 
             var json = await response.Content.ReadAsStringAsync();

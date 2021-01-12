@@ -1,11 +1,15 @@
 using System.Text;
 using Demo.Api.Models.Identity;
-using Demo.Config;
+using Demo.Configurations;
 using Demo.Filters;
 using Demo.Middlewares;
 using Demo.Persistence;
 using Demo.Services;
+using Demo.Services.Roles;
+using Demo.Shared.Extensions;
+using Demo.Shared.Helpers;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
@@ -32,10 +36,10 @@ namespace Demo
         {
             //services.Add((new ServiceDescriptor(typeof(GuidService), typeof(GuidService), ServiceLifetime.Singleton));
             //var test = Configuration.GetValue<bool>("Test");
-            services.Configure<EmailConfig>(Configuration.GetSection("Email"));
+            services.Configure<EmailConfiguration>(Configuration.GetSection("Email"));
 
             services.AddTransient<IGuidService, IntService>();
-            services.AddTransient<TestService, TestService>();
+
             services.AddSingleton("Global");
             //services.AddSingleton<IProductService, ProductService>();
 
@@ -47,10 +51,14 @@ namespace Demo
                 Config.Filters.Add(typeof(DemoExceptionHandlerFilterAttribute));
             });
 
-            services.AddAuthentication(options=> {
+            //services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+            services.AddAuthentication(options =>
+            {
                 options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
                 options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
-            }).AddJwtBearer(config=> {
+                options.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;
+            })
+                .AddJwtBearer(config=> {
 
                 config.SaveToken = true;
                 config.TokenValidationParameters = new TokenValidationParameters()
@@ -61,6 +69,10 @@ namespace Demo
                     ValidateAudience = false
                 };
             });
+            // permission policy
+            services.AddAuthorizationWithPermissions();
+            services.AddScoped<IAuthorizationHandler, PermissionAuthorizationHandler>();
+            services.AddScoped<IRoleService, RoleService>();
 
             services.AddDbContext<DemoDbContext>(options => { options.UseSqlServer(Configuration.GetConnectionString("DemoConnection")); });
             // Identity

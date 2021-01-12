@@ -1,39 +1,46 @@
-﻿using Blazored.LocalStorage;
-using Demo.Shared.Models.User;
-using Demo.SPA.Models;
+﻿using Demo.Shared.Models.User;
+using Demo.SPA.Providers;
 using Demo.SPA.Services.Authentication;
 using Microsoft.AspNetCore.Components;
-using System;
-using System.Collections.Generic;
-using System.Linq;
+using Microsoft.AspNetCore.Components.Authorization;
 using System.Threading.Tasks;
 
 namespace Demo.SPA.Pages.Auth
 {
+
     partial class Login
     {
         [Inject]
-        public ILocalStorageService storageService { get; set; }
+        private NavigationManager navigationManager { get; set; }
 
         [Inject]
-        public NavigationManager navigationManager { get; set; }
+        private IAuthenticationService authenticationService { get; set; }
 
         [Inject]
-        public AuthenticationService authenticationService { get; set; }
+        private AuthenticationStateProvider authenticationStateProvider { get; set; }
 
         private LoginRequest loginRequest;
+
+        [Parameter]
+        public string returnUrl { get; set; }
 
         public Login()
         {
             loginRequest = new LoginRequest();
         }
 
+        /// <summary>
+        /// Login
+        /// </summary>
+        /// <returns></returns>
         public async Task LoginUser()
         {
             var res = await authenticationService.LoginUserAsync(loginRequest);
             if (res != null)
             {
-                await storageService.SetItemAsync<LoginResponse>("User", res);
+                await ((LocalAuthenticationStateProvider)authenticationStateProvider).LogInAsync(res);
+                returnUrl = string.IsNullOrEmpty(returnUrl) ? "/" : returnUrl;
+                navigationManager.NavigateTo(returnUrl);
             }
         }
     }
