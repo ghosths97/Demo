@@ -63,6 +63,12 @@
 ## Dependency Injection
 - inject
 
+## Javascript
+- JSInterop Namespace
+- IJSRuntine
+- IJSObjectReference
+- _jsModule.InvokeAsync of T
+
 ## More
 - LocalStorage
 - CSS Isolation
