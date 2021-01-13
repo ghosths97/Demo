@@ -67,6 +67,7 @@
 - JSInterop Namespace
 - IJSRuntine
 - IJSObjectReference
+- [JSInvokable] Attribute
 - _jsModule.InvokeAsync of T
 
 ## More
