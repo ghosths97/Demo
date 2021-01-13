@@ -16,7 +16,7 @@ https://datalust.co/seq
 | Web APIs  			| Routing in ASP.NET Core <br> Swagger ui <br> Model binding and Model Validation	|
 | Action Filters 		| Action Filters <br> Custom Action Filters	|
 | Exception Handling		| Handle errors in ASP.NET Core	<br> Handle Exceptions in ASP.NET Core	|
-| Logging			| Configuration and LogLevels <br> Providers	|
+| Logging			| Configuration and LogLevels <br> Providers <br> Seq   |
 | Authentication with JWT	| JWT <br> Identity server intro <br> Authentication <br> Authorization	|
 | Unit Test			| AAA <br> Mocking				|	
 | Entity Framework Introduction | Entity Framework <br> Repository Pattern	|
@@ -24,13 +24,13 @@ https://datalust.co/seq
 
 # Blazor
 
-## Routing
-- @page "/route"
-- @page "/route/{parameter}"
-
 ## Hosting models
 - Server
 - Client
+
+## Routing
+- @page "/route"
+- @page "/route/{parameter}"
 
 ## Data Binding
 - One way @bind-value
