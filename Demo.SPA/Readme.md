@@ -41,6 +41,12 @@
 - Component parameter changes
 - Manual - StatusHasChanged()
 
+## EditForm and Validation
+- EditForm
+- DataAnnotationsValidator
+- ValidationSummary
+- ValidationMessage For
+
 ## Events
 - Parent - SetParameter
 - Parent - OnInitialized
