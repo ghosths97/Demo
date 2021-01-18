@@ -28,12 +28,10 @@ namespace Demo.Controllers
 
         public WeatherForecastController(ILogger<WeatherForecastController> logger, 
             IGuidService guidService,
-            TestService tService, 
            // IConfiguration config,
             IOptions<EmailConfiguration> emailConfig)
         {
             _guidService = guidService;
-            _tService = tService;
            // _Config = config;
             _emailConfig = emailConfig.Value;
             _logger = logger;
@@ -41,7 +39,6 @@ namespace Demo.Controllers
 
         private IGuidService _guidService { get; }
 
-        private readonly TestService _tService;
 
         private IConfiguration _Config { get; }
 

@@ -76,7 +76,13 @@ namespace Demo
 
             services.AddDbContext<DemoDbContext>(options => { options.UseSqlServer(Configuration.GetConnectionString("DemoConnection")); });
             // Identity
-            services.AddIdentity<User, Role>()
+            services.AddIdentity<User, Role>(config =>
+            {
+                config.Lockout = new LockoutOptions()
+                {
+                    MaxFailedAccessAttempts = 5,
+                };
+            })
                 .AddDefaultTokenProviders()
                 .AddEntityFrameworkStores<DemoDbContext>();
 

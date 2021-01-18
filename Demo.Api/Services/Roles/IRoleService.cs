@@ -1,8 +1,6 @@
 ﻿using Demo.Api.Models.Identity;
 using Demo.Shared.Models.Role;
-using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace Demo.Services.Roles
@@ -24,5 +22,7 @@ namespace Demo.Services.Roles
         public List<Role> GetRoleForUsers();
 
         public List<string> GetAllPermissions();
+
+        public Task<bool> DeleteRole(string roleID);
     }
 }

@@ -1,0 +1,29 @@
+﻿@if (role != null && !string.IsNullOrEmpty(roleId))
+{
+    <h4>@role.Name</h4>
+
+    <h5 class="card-title">
+        Permissions
+    </h5>
+    <div class="form-group">
+
+        @foreach (var permission in Permissions)
+        {
+            <div class="form-check">
+                <input type="checkbox" class="form-check-input" id="@permission.Name" checked="@permission.IsSelected" 
+                       @onchange="@((arg) => Change(permission, (bool)arg.Value))"/>
+
+                <label class="form-check-label" for="@permission.Name">@permission.Name</label>
+            </div>
+        }
+    </div>
+
+    <hr />
+    <div class="row my-2">
+        <div class="col-12">
+            <button class="btn btn-primary" type="submit" @onclick="Save">Save</button>
+            <button class="btn btn-danger float-right" @onclick="Delete">Delete</button>
+        </div>
+    </div>
+
+}

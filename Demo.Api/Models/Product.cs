@@ -1,4 +1,4 @@
-﻿using Demo.Validators;
+﻿using Demo.Shared.Validators;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -7,13 +7,14 @@ using System.Threading.Tasks;
 
 namespace Demo.Models
 {
-    public class Product : EntityBase
+    public class Product : AuditableEntity
     {
+        public int Id { get; set; }
 
         [StringLength(10)]
         public string name { get; set; }
 
-        [DateValidator]
+        [DateValidator(ErrorMessage = "Production date should not be in future")]
         public DateTime production { get; set; }
 
         public int CompanyId { get; set; }

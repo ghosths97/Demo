@@ -12,7 +12,7 @@ namespace Demo.SPA.Pages.Auth
     partial class Register
     {
         [Inject]
-        public AuthenticationService authenticationService { get; set; }
+        public IAuthenticationService authenticationService { get; set; }
             
         [Inject]
         NavigationManager navigationManager { get; set; }

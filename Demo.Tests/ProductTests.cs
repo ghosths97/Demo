@@ -17,7 +17,7 @@ namespace Demo.Tests
             var productionDate = DateTime.Now;
             Product p = new Product()
             {
-                id = 1,
+                Id = 1,
                 name  = "p1",
                 production = productionDate,
                 ExpiresInDays = 365

@@ -35,7 +35,7 @@ namespace Demo.Tests
             int productid = 1;
             Product p = new Product()
             {
-                id = productid,
+                Id = productid,
                 name = "pr1",
                 production =  DateTime.Now,
                 ExpiresInDays = 7

@@ -7,6 +7,6 @@ namespace Demo.SPA.Helpers
 {
     public class Urls
     {
-        public static string ProductsBase = "https://127.0.0.1:44360";
+        public static string ProductsBase = "https://localhost:44360";
     }
 }

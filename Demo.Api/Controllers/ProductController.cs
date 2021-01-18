@@ -15,7 +15,6 @@ namespace Demo.Controllers
 {
     [ApiController]
     [Route("[controller]")]
-  //  [Authorize(AuthenticationSchemes = "Bearer")]
     public class ProductController : ControllerBase
     {
         private IProductService _productService { get; set; }
@@ -27,8 +26,13 @@ namespace Demo.Controllers
             _logger = logger;
         }
 
+        /// <summary>
+        /// Get Product by ID
+        /// </summary>
+        /// <param name="productID"></param>
+        /// <returns></returns>
         [HttpGet]
-        [Authorize(Policy = Permissions.EditProduct)]
+        [Authorize(Policy = Policy.EditProduct)]
         public IActionResult Get(int productID)
         {
             var product = _productService.GetProduct(productID);
@@ -42,53 +46,70 @@ namespace Demo.Controllers
             return Ok(product);
         }
 
-
+        /// <summary>
+        /// Get All Product
+        /// </summary>
+        /// <returns></returns>
         [HttpGet]
         [Route("All")]
-        [Authorize(Policy = Permissions.EditProduct)]
+        [Authorize(Policy = Policy.EditProduct)]
         public IActionResult All()
         {
             return Ok( _productService.GetAll());        
         }
 
+        /// <summary>
+        /// Update Product
+        /// </summary>
+        /// <param name="product"></param>
+        /// <returns></returns>
         [HttpPut]
-        [Authorize(Policy = Permissions.EditProduct)]
+        [Authorize(Policy = Policy.EditProduct)]
         public IActionResult Put(Product product)
         {
-            var p = _productService.GetProduct(product.id);
+            var p = _productService.GetProduct(product.Id);
             if (p == null)
             {
-                _logger.LogError("Product does not exist for {productID}", product.id);
+                _logger.LogError("Product does not exist for {productID}", product.Id);
                 throw new DemoException("Product does not exist", System.Net.HttpStatusCode.BadRequest);
             }
 
             _productService.Update(product);
-            _logger.LogInformation("Product Updated {productID}", product.id);
+            _logger.LogInformation("Product Updated {productID}", product.Id);
             return Ok(product);
         }
 
-
+        /// <summary>
+        /// Create new Product
+        /// </summary>
+        /// <param name="product"></param>
+        /// <returns></returns>
         [HttpPost]
-        [Authorize(Policy = Permissions.AddProduct)]
+        [Authorize(Policy = Policy.AddProduct)]
         public IActionResult Post(Product product)
         {
-            product.id = 0;
-            var p = _productService.GetProduct(product.id);
+            product.Id = 0;
+            var p = _productService.GetProduct(product.Id);
             if (p != null)
             {
-                _logger.LogError("Product already exist for {productID}", product.id);
+                _logger.LogError("Product already exist for {productID}", product.Id);
                 throw new DemoException("Product already exist", System.Net.HttpStatusCode.BadRequest);
             }
 
             _productService.AddProduct(product);
-            _logger.LogInformation("Product Created {productID}", product.id);
+            _logger.LogInformation("Product Created {productID}", product.Id);
             return Ok(product);
 
             
         }
 
+        /// <summary>
+        /// Delete Product
+        /// </summary>
+        /// <param name="productID"></param>
+        /// <returns></returns>
         [HttpDelete]
-        [Authorize(Policy = Permissions.EditProduct)]
+        [Authorize(Policy = Policy.EditProduct)]
         public IActionResult Delete(int productID)
         {
             var p = _productService.GetProduct(productID);

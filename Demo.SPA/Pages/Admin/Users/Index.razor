@@ -1,0 +1,45 @@
+﻿<Loader Visible="@loading"></Loader>
+
+<div class="row my-2">
+    <div class="col-6">
+        <h3>All Users</h3>
+    </div>
+
+</div>
+
+<div class="row">
+    <div class="col-12">
+        @if (users == null)
+        {
+            <p><em>Loading...</em></p>
+        }
+        else
+        {
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th></th>
+                        <th>ID</th>
+                        <th>Name</th>
+                        <th>Email</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var user in users)
+                    {
+                        <tr>
+                            <td>
+                                <a class="nav-link" href="admin/user/detail/@user.Id">
+                                    <span class="oi oi-eye" aria-hidden="true"></span> View
+                                </a>
+                            </td>
+                            <td>@user.Id</td>
+                            <td>@user.Name</td>
+                            <td>@user.Email</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        }
+    </div>
+</div>

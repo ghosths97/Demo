@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Demo.Api.Migrations
 {
-    public partial class all : Migration
+    public partial class initial : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -51,27 +51,30 @@ namespace Demo.Api.Migrations
                 name: "Companies",
                 columns: table => new
                 {
-                    id = table.Column<int>(type: "int", nullable: false)
+                    Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    name = table.Column<string>(type: "nvarchar(10)", maxLength: 10, nullable: true),
-                    Created = table.Column<DateTime>(type: "datetime2", nullable: false)
+                    Name = table.Column<string>(type: "nvarchar(10)", maxLength: 10, nullable: true),
+                    CreatedBy = table.Column<int>(type: "int", nullable: false),
+                    LastModifiedBy = table.Column<int>(type: "int", nullable: false),
+                    Created = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    LastModificationOn = table.Column<DateTime>(type: "datetime2", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Companies", x => x.id);
+                    table.PrimaryKey("PK_Companies", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
                 name: "Permissions",
                 columns: table => new
                 {
-                    PermissionId = table.Column<long>(type: "bigint", nullable: false)
+                    Id = table.Column<long>(type: "bigint", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Name = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Permissions", x => x.PermissionId);
+                    table.PrimaryKey("PK_Permissions", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -201,22 +204,25 @@ namespace Demo.Api.Migrations
                 name: "Products",
                 columns: table => new
                 {
-                    id = table.Column<int>(type: "int", nullable: false)
+                    Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     name = table.Column<string>(type: "nvarchar(10)", maxLength: 10, nullable: true),
                     production = table.Column<DateTime>(type: "datetime2", nullable: false),
                     CompanyId = table.Column<int>(type: "int", nullable: false),
                     ExpiresInDays = table.Column<int>(type: "int", nullable: false),
-                    Created = table.Column<DateTime>(type: "datetime2", nullable: false)
+                    CreatedBy = table.Column<int>(type: "int", nullable: false),
+                    LastModifiedBy = table.Column<int>(type: "int", nullable: false),
+                    Created = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    LastModificationOn = table.Column<DateTime>(type: "datetime2", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Products", x => x.id);
+                    table.PrimaryKey("PK_Products", x => x.Id);
                     table.ForeignKey(
                         name: "FK_Products_Companies_CompanyId",
                         column: x => x.CompanyId,
                         principalTable: "Companies",
-                        principalColumn: "id",
+                        principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
 
@@ -231,12 +237,16 @@ namespace Demo.Api.Migrations
 
             migrationBuilder.InsertData(
                 table: "Companies",
-                columns: new[] { "id", "Created", "name" },
-                values: new object[] { 1, new DateTime(2021, 1, 11, 19, 59, 42, 144, DateTimeKind.Local).AddTicks(6280), "Company1" });
+                columns: new[] { "Id", "Created", "CreatedBy", "LastModificationOn", "LastModifiedBy", "Name" },
+                values: new object[,]
+                {
+                    { 1, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 0, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 0, "Company1" },
+                    { 2, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 0, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 0, "Company2" }
+                });
 
             migrationBuilder.InsertData(
                 table: "Permissions",
-                columns: new[] { "PermissionId", "Name" },
+                columns: new[] { "Id", "Name" },
                 values: new object[,]
                 {
                     { 1L, "Login" },
@@ -261,11 +271,11 @@ namespace Demo.Api.Migrations
 
             migrationBuilder.InsertData(
                 table: "Products",
-                columns: new[] { "id", "CompanyId", "Created", "ExpiresInDays", "name", "production" },
+                columns: new[] { "Id", "CompanyId", "Created", "CreatedBy", "ExpiresInDays", "LastModificationOn", "LastModifiedBy", "name", "production" },
                 values: new object[,]
                 {
-                    { 1, 1, new DateTime(2021, 1, 11, 19, 59, 42, 148, DateTimeKind.Local).AddTicks(517), 365, "product 1", new DateTime(2021, 1, 11, 19, 59, 42, 148, DateTimeKind.Local).AddTicks(1396) },
-                    { 2, 1, new DateTime(2021, 1, 11, 19, 59, 42, 148, DateTimeKind.Local).AddTicks(3679), 7, "product 2", new DateTime(2021, 1, 11, 19, 59, 42, 148, DateTimeKind.Local).AddTicks(3694) }
+                    { 1, 1, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 0, 365, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 0, "product 1", new DateTime(2021, 1, 16, 18, 19, 26, 762, DateTimeKind.Local).AddTicks(9544) },
+                    { 2, 1, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 0, 7, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 0, "product 2", new DateTime(2021, 1, 16, 18, 19, 26, 764, DateTimeKind.Local).AddTicks(704) }
                 });
 
             migrationBuilder.InsertData(

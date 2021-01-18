@@ -1,4 +1,4 @@
-﻿using Demo.SPA.Models;
+﻿using Demo.Shared.Models.Domain;
 using Demo.SPA.Services.Product;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Components;
@@ -16,7 +16,7 @@ namespace Demo.SPA.Pages.Products
         [Inject]
         private IProductService _productService { get; set; }
 
-        private IEnumerable<Demo.SPA.Models.ProductDto> products;
+        private IEnumerable<ProductDto> products;
 
         private bool loading { get; set; }
 
@@ -28,7 +28,7 @@ namespace Demo.SPA.Pages.Products
         protected override async Task OnInitializedAsync()
         {
             loading = true;
-            products = await _productService.GetAllProducts();
+            products = await _productService.GetAllProductsAsync();
             loading = false;
         }
     }

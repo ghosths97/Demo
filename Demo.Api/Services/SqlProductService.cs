@@ -29,7 +29,7 @@ namespace Demo.Services
 
         public void Delete(int id)
         {
-            var p = _dbContext.Products.Where(p => p.id == id).FirstOrDefault();
+            var p = _dbContext.Products.Where(p => p.Id == id).FirstOrDefault();
             if(p!= null)
                 _dbContext.Products.Remove(p);
 
@@ -44,12 +44,12 @@ namespace Demo.Services
 
         public Product GetProduct(int id)
         {
-            return _dbContext.Products.Where(p => p.id == id).FirstOrDefault();
+            return _dbContext.Products.Where(p => p.Id == id).FirstOrDefault();
         }
 
         public void Update(Product product)
         {
-            var p = _dbContext.Products.Where(p => p.id == product.id).FirstOrDefault();
+            var p = _dbContext.Products.Where(p => p.Id == product.Id).FirstOrDefault();
             p.name = product.name;
             p.production = product.production;
             p.ExpiresInDays = product.ExpiresInDays;

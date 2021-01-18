@@ -21,6 +21,8 @@ namespace Demo.SPA.Pages.Auth
 
         private LoginRequest loginRequest;
 
+        private bool busy;
+
         [Parameter]
         public string returnUrl { get; set; }
 
@@ -35,6 +37,7 @@ namespace Demo.SPA.Pages.Auth
         /// <returns></returns>
         public async Task LoginUser()
         {
+            busy = true;
             var res = await authenticationService.LoginUserAsync(loginRequest);
             if (res != null)
             {
@@ -42,6 +45,7 @@ namespace Demo.SPA.Pages.Auth
                 returnUrl = string.IsNullOrEmpty(returnUrl) ? "/" : returnUrl;
                 navigationManager.NavigateTo(returnUrl);
             }
+            busy = false;
         }
     }
 }

@@ -6,10 +6,12 @@ using System.Threading.Tasks;
 
 namespace Demo.Models
 {
-    public class Company : EntityBase
+    public class Company : AuditableEntity
     {
+        public int Id { get; set; }
+
         [StringLength(10)]
-        public string name { get; set; }
+        public string Name { get; set; }
 
         public ICollection<Product> Products { get; set; }
     }

@@ -174,5 +174,14 @@ namespace Demo.Services.Roles
             var finalresult = result.Distinct().ToList();
             return finalresult;
         }   
+
+        public async Task<bool> DeleteRole(string roleID)
+        {
+            var role = _roleManager.Roles.Where(r => r.Id == roleID).FirstOrDefault();
+            if (role != null)
+                await _roleManager.DeleteAsync(role);
+
+            return true;
+        }
     }
 }

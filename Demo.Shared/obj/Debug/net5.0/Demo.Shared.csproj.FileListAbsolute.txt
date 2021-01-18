@@ -21,3 +21,4 @@ C:\Users\Daffolap-917\Desktop\Demo\Demo.Shared\obj\Debug\net5.0\Demo.Shared.cspr
 C:\Users\Daffolap-917\Desktop\Demo\Demo.Shared\obj\Debug\net5.0\Demo.Shared.dll
 C:\Users\Daffolap-917\Desktop\Demo\Demo.Shared\obj\Debug\net5.0\ref\Demo.Shared.dll
 C:\Users\Daffolap-917\Desktop\Demo\Demo.Shared\obj\Debug\net5.0\Demo.Shared.pdb
+C:\Users\Daffolap-917\Desktop\Demo\Demo.Shared\obj\Debug\net5.0\Demo.Shared.csprojAssemblyReference.cache

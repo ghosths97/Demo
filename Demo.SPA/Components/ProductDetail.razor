@@ -1,4 +1,5 @@
-﻿<EditForm Model="product">
+﻿@using Demo.Shared.Models.Domain
+<EditForm Model="product" OnValidSubmit="Save">
 
     <DataAnnotationsValidator />
     <ValidationSummary />
@@ -6,6 +7,7 @@
     <div class="form-group">
         <label for="exampleInputEmail1">Name</label>
         <input type="text" @bind-value="product.name" class="form-control" placeholder="Product Name">
+
     </div>
 
     <div class="form-group">
@@ -15,20 +17,55 @@
 
     <div class="form-group">
         <label for="exampleInputEmail1">Expires In Days</label>
-        <input type="number" @bind-value="product.expiresInDays" class="form-control" placeholder="Expires In Days">
+        <input type="number" @bind-value="product.ExpiresInDays" class="form-control" placeholder="Expires In Days">
     </div>
 
     <div class="form-group">
-        <label for="exampleInputEmail1">Company ID</label>
-        <input type="number" @bind-value="product.companyId" class="form-control" placeholder="Company ID">
+        <label for="exampleInputEmail1">Company </label>
+        <InputSelect TValue="int" @bind-Value="product.CompanyId" class="form-control">
+            <option value="">Select Company</option>
+            @if (Companies != null)
+                @foreach (var comp in Companies)
+                {
+                    <option value="@comp.Id">@comp.Name</option>
+                }
+            }
+        </InputSelect>
+    </div>
+
+    <div class="form-group">
+        <label for="exampleInputEmail1">Active</label>
+        <InputCheckbox @bind-Value="product.IsActive" DisplayName="Active"></InputCheckbox>
+    </div>
+
+    <hr />
+    <div class="row my-2">
+        <div class="col-12">
+            @if (product.Id > 0)
+            {
+                <button class="btn btn-primary" type="submit">Update</button>
+                <AuthorizeView Policy="@Policy.AddProduct" Context="authContext">
+                    <button type="button" class="btn btn-danger float-right" @onclick="@(()=>modal.Open())">Delete</button>
+                </AuthorizeView>
+            }
+            else
+            {
+                <button class="btn btn-primary" type="submit">Save</button>
+            }
+        </div>
     </div>
 
 </EditForm>
 
-
-@code {
-
-    [Parameter]
-    public Models.ProductDto product { get; set; }
-    
-}
+<Modal @ref="modal">
+    <Title>
+        Confirm Delete ?
+    </Title>
+    <Body>
+        <h4>Are you sure? this action can't be undone.</h4>
+    </Body>
+    <Footer>
+        <button class="btn btn-info" @onclick="modal.Close">Cancel</button>
+        <button class="btn btn-danger float-right" @onclick="Delete">Delete</button>
+    </Footer>
+</Modal>

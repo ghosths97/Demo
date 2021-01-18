@@ -1,5 +1,10 @@
 @inherits LayoutComponentBase
+@inject AuthenticationStateProvider authenticationState
+@using Demo.SPA.Providers
+@using Blazored.Toast.Configuration
 
+
+<BlazoredToasts Position="ToastPosition.TopRight" Timeout="5" />
 <div class="page">
     <div class="sidebar">
         <NavMenu />
@@ -7,7 +12,14 @@
 
     <div class="main">
         <div class="top-row px-4">
-            <a href="http://blazor.net" target="_blank" class="ml-md-auto">About</a>
+            <AuthorizeView>
+                <Authorized>
+                    <a class="ml-md-auto btn btn-link" href="#" @onclick="LogoutAsync">Logout</a>
+                </Authorized>
+                <NotAuthorized>
+                    <a class="ml-md-auto btn btn-link" href="auth/login">Login</a>
+                </NotAuthorized>
+            </AuthorizeView>
         </div>
 
         <div class="content px-4">
@@ -15,3 +27,12 @@
         </div>
     </div>
 </div>
+
+@code {
+
+    public async Task LogoutAsync()
+    {
+        await ((LocalAuthenticationStateProvider)authenticationState).LogoutAsync();
+    }
+
+}

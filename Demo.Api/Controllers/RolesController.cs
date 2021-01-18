@@ -10,11 +10,12 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 
-namespace MachineTalk.VMS.Authentication.Controllers
+namespace Demo.Api.Controllers
 {
 
     [ApiController]
     [Route("[controller]")]
+    [Authorize(Policy = Policy.Role)]
     public class RolesController : ControllerBase
     {
         private readonly IRoleService _roleService;
@@ -24,9 +25,9 @@ namespace MachineTalk.VMS.Authentication.Controllers
             _roleService = roleService;
         }
 
-        [Authorize(Policy = Permissions.Role)]
+        [Authorize(Policy = Policy.Role)]
         [HttpPost]
-        public async Task<IActionResult> Add([FromBody] RoleRequest roleDto)
+        public async Task<IActionResult> Add(RoleRequest roleDto)
         {
             try
             {
@@ -57,7 +58,7 @@ namespace MachineTalk.VMS.Authentication.Controllers
         }
 
 
-        [Authorize(Policy = Permissions.Role)]
+        [Authorize(Policy = Policy.Role)]
         [HttpGet("{id}")]
         public async Task<IActionResult> GetRole(string id)
         {
@@ -77,34 +78,16 @@ namespace MachineTalk.VMS.Authentication.Controllers
             }
         }
 
-        [HttpGet("GetRolesByIds")]
-        public async Task<IActionResult> GetRoleNamesByIds([FromQuery]string id)
-        {
-            if (id == null)
-            {
-                return BadRequest();
-            }
-            try
-            {
-                var role = await _roleService.GetRoleNamesByIds(id);
-                return Ok(role);
-            }
-            catch
-            {
-                return StatusCode(StatusCodes.Status500InternalServerError);
-            }
-        }
-
-        [Authorize(Policy = Permissions.Role)]
+        [Authorize(Policy = Policy.Role)]
         [HttpDelete("{id}")]
         public async Task<IActionResult> Delete(string id)
         {
-            var role = await _roleService.GetRole(id);
-            var roleDto = new RoleResponse { Name = role.Name, Permissions = role.Permissions, RoleId = role.RoleId };
+            var role = await _roleService.DeleteRole(id);
+            var roleDto = new RoleResponse { RoleId = id };
             return Ok(roleDto);
         }
 
-        [Authorize(Policy = Permissions.Role)]
+        [Authorize(Policy = Policy.Role)]
         [HttpGet]
         public async Task<IActionResult> GetAllRole()
         {
@@ -148,7 +131,7 @@ namespace MachineTalk.VMS.Authentication.Controllers
 
         }
 
-        [Authorize(Policy = Permissions.Role)]
+        [Authorize(Policy = Policy.Role)]
         [HttpPut]
         public async Task<IActionResult> UpdateRole([FromBody] RoleRequest roleDto)
         {

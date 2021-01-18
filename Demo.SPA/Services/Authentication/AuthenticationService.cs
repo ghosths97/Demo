@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Text.Json;
 using System.Net.Http;
+using System.Net.Http.Json;
 using Demo.SPA.Helpers;
 using Demo.Shared.Models.User;
 
@@ -25,9 +26,9 @@ namespace Demo.SPA.Services.Authentication
         /// <returns>RegisterResponse</returns>
         public async Task<RegisterResponse> RegisterUserAsync(RegisterRequest request)
         {
-            var requestJson = new JsonContent(request);
+            //var requestJson = new JsonContent(request);
 
-            var response = await _Client.PostAsync($"/register", requestJson);
+            var response = await _Client.PostAsJsonAsync<RegisterRequest>($"/register", request);
 
             var json = await response.Content.ReadAsStringAsync();
 
@@ -46,8 +47,8 @@ namespace Demo.SPA.Services.Authentication
                 PropertyNameCaseInsensitive = true
             };
 
-            var requestJson = new JsonContent(request);
-            var response = await _Client.PostAsync($"/login", requestJson);
+            //var requestJson = new JsonContent(request);
+            var response = await _Client.PostAsJsonAsync<LoginRequest>($"/login", request);
 
             var json = await response.Content.ReadAsStringAsync();
             var result = JsonSerializer.Deserialize<LoginResponse>(json, op);

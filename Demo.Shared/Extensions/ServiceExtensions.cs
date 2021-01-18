@@ -12,24 +12,23 @@ namespace Demo.Shared.Extensions
 {
     public static class ServiceExtensions
     {
+        /// <summary>
+        /// Add Authorization With Permissions (Policy)
+        /// </summary>
+        /// <param name="services"></param>
         public static void AddAuthorizationWithPermissions(this IServiceCollection services)
         {
-            var AuthScheme = new string[]{ "Bearer" };
-
             services.AddAuthorizationCore(options =>
             {
                 options.InvokeHandlersAfterFailure = false;
 
-                options.AddPolicy(Permissions.Login, policy => { policy.AuthenticationSchemes = AuthScheme; policy.AddRequirements(new PermissionRequirement(Permissions.Login)); });
-                
-                options.AddPolicy(Permissions.Users, policy => { policy.AuthenticationSchemes = AuthScheme; policy.AddRequirements(new PermissionRequirement(Permissions.Users)); });
-                
-                options.AddPolicy(Permissions.AddProduct, policy => { policy.AuthenticationSchemes = AuthScheme; policy.AddRequirements(new PermissionRequirement(Permissions.AddProduct)); });
-                options.AddPolicy(Permissions.EditProduct, policy => { policy.AuthenticationSchemes = AuthScheme; policy.AddRequirements(new PermissionRequirement(Permissions.EditProduct)); });
-                options.AddPolicy(Permissions.ViewProduct, policy => { policy.AuthenticationSchemes = AuthScheme; policy.AddRequirements(new PermissionRequirement(Permissions.ViewProduct)); });
-                options.AddPolicy(Permissions.Permission, policy => { policy.AuthenticationSchemes = AuthScheme; policy.AddRequirements(new PermissionRequirement(Permissions.Permission)); });
-                options.AddPolicy(Permissions.Role, policy => { policy.AuthenticationSchemes = AuthScheme; policy.AddRequirements(new PermissionRequirement(Permissions.Role)); });
-                
+                options.AddPolicy(Policy.Users, Policy.UsersPolicy());
+                options.AddPolicy(Policy.AddProduct, Policy.AddProductPolicy());
+                options.AddPolicy(Policy.EditProduct, Policy.EditProductPolicy());
+                options.AddPolicy(Policy.Permission, Policy.PermissionPolicy());
+                options.AddPolicy(Policy.Role, Policy.RolePolicy());
+                options.AddPolicy(Policy.Login, Policy.LoginPolicy());
+
             });
         }
     }

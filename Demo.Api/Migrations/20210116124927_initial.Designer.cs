@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Demo.Api.Migrations
 {
     [DbContext(typeof(DemoDbContext))]
-    [Migration("20210111142943_all")]
-    partial class all
+    [Migration("20210116124927_initial")]
+    partial class initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -91,7 +91,7 @@ namespace Demo.Api.Migrations
 
             modelBuilder.Entity("Demo.Api.Models.Security.Permission", b =>
                 {
-                    b.Property<long>("PermissionId")
+                    b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("bigint")
                         .UseIdentityColumn();
@@ -101,46 +101,46 @@ namespace Demo.Api.Migrations
                         .HasMaxLength(100)
                         .HasColumnType("nvarchar(100)");
 
-                    b.HasKey("PermissionId");
+                    b.HasKey("Id");
 
                     b.ToTable("Permissions");
 
                     b.HasData(
                         new
                         {
-                            PermissionId = 1L,
+                            Id = 1L,
                             Name = "Login"
                         },
                         new
                         {
-                            PermissionId = 2L,
+                            Id = 2L,
                             Name = "Users"
                         },
                         new
                         {
-                            PermissionId = 3L,
+                            Id = 3L,
                             Name = "Role"
                         },
                         new
                         {
-                            PermissionId = 4L,
+                            Id = 4L,
                             Name = "Permissions"
                         },
                         new
                         {
-                            PermissionId = 5L,
+                            Id = 5L,
                             Name = "AddProduct"
                         },
                         new
                         {
-                            PermissionId = 6L,
+                            Id = 6L,
                             Name = "EditProduct"
                         });
                 });
 
             modelBuilder.Entity("Demo.Models.Company", b =>
                 {
-                    b.Property<int>("id")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .UseIdentityColumn();
@@ -148,26 +148,47 @@ namespace Demo.Api.Migrations
                     b.Property<DateTime>("Created")
                         .HasColumnType("datetime2");
 
-                    b.Property<string>("name")
+                    b.Property<int>("CreatedBy")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("LastModificationOn")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("LastModifiedBy")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Name")
                         .HasMaxLength(10)
                         .HasColumnType("nvarchar(10)");
 
-                    b.HasKey("id");
+                    b.HasKey("Id");
 
                     b.ToTable("Companies");
 
                     b.HasData(
                         new
                         {
-                            id = 1,
-                            Created = new DateTime(2021, 1, 11, 19, 59, 42, 144, DateTimeKind.Local).AddTicks(6280),
-                            name = "Company1"
+                            Id = 1,
+                            Created = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            CreatedBy = 0,
+                            LastModificationOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            LastModifiedBy = 0,
+                            Name = "Company1"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Created = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            CreatedBy = 0,
+                            LastModificationOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            LastModifiedBy = 0,
+                            Name = "Company2"
                         });
                 });
 
             modelBuilder.Entity("Demo.Models.Product", b =>
                 {
-                    b.Property<int>("id")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .UseIdentityColumn();
@@ -178,7 +199,16 @@ namespace Demo.Api.Migrations
                     b.Property<DateTime>("Created")
                         .HasColumnType("datetime2");
 
+                    b.Property<int>("CreatedBy")
+                        .HasColumnType("int");
+
                     b.Property<int>("ExpiresInDays")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("LastModificationOn")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("LastModifiedBy")
                         .HasColumnType("int");
 
                     b.Property<string>("name")
@@ -188,7 +218,7 @@ namespace Demo.Api.Migrations
                     b.Property<DateTime>("production")
                         .HasColumnType("datetime2");
 
-                    b.HasKey("id");
+                    b.HasKey("Id");
 
                     b.HasIndex("CompanyId");
 
@@ -197,21 +227,27 @@ namespace Demo.Api.Migrations
                     b.HasData(
                         new
                         {
-                            id = 1,
+                            Id = 1,
                             CompanyId = 1,
-                            Created = new DateTime(2021, 1, 11, 19, 59, 42, 148, DateTimeKind.Local).AddTicks(517),
+                            Created = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            CreatedBy = 0,
                             ExpiresInDays = 365,
+                            LastModificationOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            LastModifiedBy = 0,
                             name = "product 1",
-                            production = new DateTime(2021, 1, 11, 19, 59, 42, 148, DateTimeKind.Local).AddTicks(1396)
+                            production = new DateTime(2021, 1, 16, 18, 19, 26, 762, DateTimeKind.Local).AddTicks(9544)
                         },
                         new
                         {
-                            id = 2,
+                            Id = 2,
                             CompanyId = 1,
-                            Created = new DateTime(2021, 1, 11, 19, 59, 42, 148, DateTimeKind.Local).AddTicks(3679),
+                            Created = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            CreatedBy = 0,
                             ExpiresInDays = 7,
+                            LastModificationOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            LastModifiedBy = 0,
                             name = "product 2",
-                            production = new DateTime(2021, 1, 11, 19, 59, 42, 148, DateTimeKind.Local).AddTicks(3694)
+                            production = new DateTime(2021, 1, 16, 18, 19, 26, 764, DateTimeKind.Local).AddTicks(704)
                         });
                 });
 

@@ -5,7 +5,7 @@ namespace Demo.Api.Models.Security
     public class Permission
     {
         [Key]
-        public long PermissionId { get; set; }
+        public long Id { get; set; }
 
         [Required]
         [MaxLength(100)]

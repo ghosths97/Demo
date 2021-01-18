@@ -17,7 +17,7 @@ namespace Demo.Services
 
         public Product GetProduct(int id)
         {
-            return Products.Where(p => p.id == id).FirstOrDefault();
+            return Products.Where(p => p.Id == id).FirstOrDefault();
         }
 
         public void AddProduct(Product p)

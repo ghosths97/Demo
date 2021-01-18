@@ -17,7 +17,7 @@ using System.Threading.Tasks;
 
 namespace Demo.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("[controller]")]
     [ApiController]
     public class AuthController : ControllerBase
     {
@@ -37,6 +37,11 @@ namespace Demo.Controllers
             _logger = logger;
         }
 
+        /// <summary>
+        /// Login
+        /// </summary>
+        /// <param name="login"></param>
+        /// <returns></returns>
         [HttpPost]        
         [Route("/login")]
         public async Task<IActionResult> Auth(LoginRequest login)
@@ -60,6 +65,7 @@ namespace Demo.Controllers
                 var roleClaims = await _roleManager.GetClaimsAsync(userRoles);
                 roleClaims.Add(new Claim(ClaimTypes.Email, user.Email.ToString()));
                 roleClaims.Add(new Claim("Id", user.Id));
+                roleClaims.Add(new Claim(ClaimTypes.Name, user.Name));
 
                 token = GenerateJwtToken(user, roleClaims);
                 _logger.LogDebug("logging success");
@@ -73,6 +79,11 @@ namespace Demo.Controllers
             return Ok(new LoginResponse() { Username = login.Email, Token = token });
         }
         
+        /// <summary>
+        /// Register
+        /// </summary>
+        /// <param name="registerRequest"></param>
+        /// <returns></returns>
         [HttpPost]
         [Route("/register")]
         public async Task<IActionResult> Register(RegisterRequest registerRequest)
@@ -97,7 +108,12 @@ namespace Demo.Controllers
             return Created("/login", new RegisterResponse() { Message = "User created successfully" });
         }
 
-
+        /// <summary>
+        /// Generate JWT Token
+        /// </summary>
+        /// <param name="user"></param>
+        /// <param name="claims"></param>
+        /// <returns>JWT Token</returns>
         private string GenerateJwtToken(User user, IList<Claim> claims)
         {
             // generate token that is valid for 7 days
@@ -112,32 +128,7 @@ namespace Demo.Controllers
             };
             var token = tokenHandler.CreateToken(tokenDescriptor);
             return tokenHandler.WriteToken(token);
-        }
-
-        private string GetToken(LoginRequest login)
-        {
-            var user_name = "Ravi";
-
-            var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("a_very_long_key_to_encrypt"));
-            var signingCredentials = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
-
-            var claims = new[] { new Claim("Sub", login.Email),
-                                 new Claim("username", user_name),
-                                 new Claim("role", "user")
-            };
-
-            JwtSecurityToken token = new JwtSecurityToken(
-                notBefore: DateTime.Now,
-                expires: DateTime.Now.AddHours(1),
-                signingCredentials: signingCredentials,
-                claims: claims,
-                issuer: "https://localhost:44360/",
-                audience: "https://localhost:44360/"
-                );
-
-
-            return new JwtSecurityTokenHandler().WriteToken(token);
-        }
+        }        
 
     }
 }

@@ -43,7 +43,8 @@ namespace Demo.Persistence
 
 
             // seed
-            modelBuilder.Entity<Company>().HasData(new[] { new Company() { id = 1, name = "Company1" } });
+            modelBuilder.Entity<Company>().HasData(new[] { new Company() { Id = 1, Name = "Company1" } });
+            modelBuilder.Entity<Company>().HasData(new[] { new Company() { Id = 2, Name = "Company2" } });
 
             modelBuilder.Entity<Role>().HasData(new[] {
                 new Role(){ Id = "84e7b6dc-7889-415d-8198-799f263bfb9d", ConcurrencyStamp="84e7b6dc-7889-415d-8198-799f263bfb9d", Name="User", NormalizedName= "USER" },
@@ -51,17 +52,17 @@ namespace Demo.Persistence
             });
 
             modelBuilder.Entity<Product>().HasData(new[] {
-                new Product() {id=1, name="product 1", production = DateTime.Now, CompanyId=1, ExpiresInDays=365 },
-                new Product() {id=2, name="product 2", production = DateTime.Now, CompanyId=1, ExpiresInDays=7 }
+                new Product() {Id=1, name="product 1", production = DateTime.Now, CompanyId=1, ExpiresInDays=365 },
+                new Product() {Id=2, name="product 2", production = DateTime.Now, CompanyId=1, ExpiresInDays=7 }
             });
 
             modelBuilder.Entity<Permission>().HasData(
-                   new Permission() { PermissionId = 1, Name = "Login" },
-                   new Permission() { PermissionId = 2, Name = "Users" },
-                   new Permission() { PermissionId = 3, Name = "Role" },
-                   new Permission() { PermissionId = 4, Name = "Permissions" },
-                   new Permission() { PermissionId = 5, Name = "AddProduct" },
-                   new Permission() { PermissionId = 6, Name = "EditProduct" });
+                   new Permission() { Id = 1, Name = "Login" },
+                   new Permission() { Id = 2, Name = "Users" },
+                   new Permission() { Id = 3, Name = "Role" },
+                   new Permission() { Id = 4, Name = "Permissions" },
+                   new Permission() { Id = 5, Name = "AddProduct" },
+                   new Permission() { Id = 6, Name = "EditProduct" });
 
             modelBuilder.Entity<IdentityRoleClaim<string>>().HasData(
                 new IdentityRoleClaim<string> { Id = 1, RoleId = "84e7b6dc-7889-415d-8198-799f263bfb9d", ClaimType = "permission", ClaimValue = "Login" },
