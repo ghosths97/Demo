@@ -83,8 +83,8 @@
 - CSS Isolation
 - JS Isolation
   
-Resources  
-<a href"https://mudblazor.com/">mudblazor</a>
-<a href"https://matblazor.com">Matblazor</a>
-<a href"https://blazor.radzen.com/">Radzen</a>
+## Resources  
+<a href="https://mudblazor.com/">mudblazor</a> <br>
+<a href="https://matblazor.com">Matblazor</a> <br>
+<a href="https://blazor.radzen.com/">Radzen</a>
 
