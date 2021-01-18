@@ -46,6 +46,8 @@
 - DataAnnotationsValidator
 - ValidationSummary
 - ValidationMessage For
+- ValidateComplexType
+- ObjectGraphDataAnnotationsValidator
 
 ## Events
 - Parent - SetParameter
