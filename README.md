@@ -2,7 +2,7 @@
 # Demo
 dotnet core training demos
 
-logging requires seq
+logging uses seq (optional)
 
 https://datalust.co/seq
 
