@@ -84,7 +84,7 @@
 - JS Isolation
   
 Resources  
-https://mudblazor.com/
-https://matblazor.com
-https://blazor.radzen.com/
+<a href"https://mudblazor.com/">mudblazor</a>
+<a href"https://matblazor.com">Matblazor</a>
+<a href"https://blazor.radzen.com/">Radzen</a>
 
