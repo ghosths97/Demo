@@ -1,8 +1,9 @@
 
-# Demo
+<image src="https://raw.githubusercontent.com/github/explore/93d8a67084f94b2a444e510199a6e7622e5b09a3/topics/dotnet/dotnet.png" />  
+# Demo  <br>
 dotnet core training demos
 
-logging requires seq
+logging uses seq (optional)
 
 https://datalust.co/seq
 
@@ -21,74 +22,3 @@ https://datalust.co/seq
 | Unit Test			| AAA <br> Mocking				|	
 | Entity Framework Introduction | Entity Framework <br> Repository Pattern	|
 | Razor Pages 			| Introduction					|
-
-# Blazor
-
-## Hosting models
-- Server
-- Client
-
-## Routing
-- @page "/route"
-- @page "/route/{parameter}"
-
-## Data Binding
-- One way @bind-value
-- Two way @bind-value:event="oninput"
-
-## Components
-- Flexible and lightweight self contained functionality with UI
-- Parameter
-- Cascading Parameter
-
-# Virtualize
-```C#
-<Virtualize ItemsProvider="LoadEmployees" ItemSize="40" Context="employee">
-    <ItemContent>
-        <tr>
-            <td>@employee.FirstName</td>
-            <td>@employee.LastName</td>
-            <td>@employee.JobTitle</td>
-        </tr>
-    </ItemContent>
-    <Placeholder>
-        <tr>
-            <td>Loading...</td>
-        </tr>
-    </Placeholder>
-</Virtualize>
-```
-
-## Component Render
-- Component created
-- Component events are triggered
-- Component parameter changes
-- Manual - StatusHasChanged()
-
-## Events
-- Parent - SetParameter
-- Parent - OnInitialized
-- Parent - OnParametersSet
-  - Child - SetParameter
-  - Child - OnInitialized
-  - Child - OnParametersSet
-- Parent - OnAfterRender
-  - Child - OnAfterRender
-
-## EventCallBack
-- EventCallBack 
-- EventCallBack of T
-
-## Templated Components
-- RenderFragment
-- RenderFragment of T
-  - TItem
-
-## Dependency Injection
-- inject
-
-## More
-- LocalStorage
-- CSS Isolation
-- JS Isolation
-  
