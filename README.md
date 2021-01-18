@@ -20,4 +20,4 @@ https://datalust.co/seq
 | Unit Test			| AAA <br> Mocking				|	
 | Entity Framework Introduction | Entity Framework <br> Repository Pattern	|
 | Razor Pages 			| Introduction					|
-| <a href="https://github.com/mukesh-untk/Demo/tree/main/Demo.SPA">Blazor</a> | SPA Application using API |
+| <a href="https://github.com/mukesh-untk/Demo/tree/main/Demo.SPA#blazor">Blazor</a> | SPA Application using API |
