@@ -1,5 +1,6 @@
 
-# Demo
+<image src="https://raw.githubusercontent.com/github/explore/93d8a67084f94b2a444e510199a6e7622e5b09a3/topics/dotnet/dotnet.png" />  
+# Demo  <br>
 dotnet core training demos
 
 logging uses seq (optional)
