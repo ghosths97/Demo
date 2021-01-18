@@ -14,8 +14,8 @@
 
 ## Components
 - Flexible and lightweight self contained functionality with UI
-- Parameter
-- Cascading Parameter
+- [Parameter]
+- [CascadingParameter]
 
 # Virtualize
 ```C#
@@ -77,6 +77,20 @@
 - IJSObjectReference
 - [JSInvokable] Attribute
 - _jsModule.InvokeAsync of T
+
+## Authentication / Authorization
+- [Authorize]
+```C#
+<CascadingAuthenticationState>
+    <AuthorizeRouteView >
+        <Authorized>                
+        </Authorized>
+        
+        <NotAuthorized>                
+        </NotAuthorized>
+    </AuthorizeRouteView>
+</CascadingAuthenticationState>
+```
 
 ## More
 - LocalStorage
