@@ -14,6 +14,7 @@ using Demo.SPA.Services.Product;
 using Demo.SPA.Services.User;
 using Demo.SPA.Services.Security;
 using Blazored.Toast;
+using Demo.SPA.Components;
 
 namespace Demo.SPA
 {
@@ -32,8 +33,10 @@ namespace Demo.SPA
             builder.Services.AddHttpClient<ISecurityService, SecurityService>(client => client.BaseAddress = new Uri(Urls.ProductsBase))
                 .AddHttpMessageHandler<TokenAuthrorizationHandler>();
 
-            builder.Services.AddHttpClient<IAuthenticationService, AuthenticationService>(client => client.BaseAddress = new Uri(Urls.ProductsBase));            
-            
+            builder.Services.AddHttpClient<IAuthenticationService, AuthenticationService>(client => client.BaseAddress = new Uri(Urls.ProductsBase));
+
+            builder.Services.AddSingleton<Spinner>();
+
             builder.Services.AddBlazoredLocalStorage();
             builder.Services.AddBlazoredToast();
 

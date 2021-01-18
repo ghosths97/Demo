@@ -15,8 +15,6 @@ namespace Demo.SPA.Pages.Products
 
         private ProductDto product { get; set; }
 
-        bool IsBusy { get; set; }
-
         public AddProduct()
         {
             product = new ProductDto();
@@ -28,9 +26,7 @@ namespace Demo.SPA.Pages.Products
         /// <returns></returns>
         private async Task Save()
         {
-            IsBusy = true;
             await productService.AddProductAsync(product);
-            IsBusy = false;
         }
     }
 }

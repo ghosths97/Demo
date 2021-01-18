@@ -23,9 +23,7 @@ namespace Demo.SPA.Pages.Admin.Users
 
         protected override async Task OnInitializedAsync()
         {
-            loading = true;
             users = await _userService.GetAllUserAsync();
-            loading = false;
         }
     }
 }

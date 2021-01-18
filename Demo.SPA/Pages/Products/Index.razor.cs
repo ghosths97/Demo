@@ -27,9 +27,7 @@ namespace Demo.SPA.Pages.Products
 
         protected override async Task OnInitializedAsync()
         {
-            loading = true;
             products = await _productService.GetAllProductsAsync();
-            loading = false;
         }
     }
 }

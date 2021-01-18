@@ -1,12 +1,16 @@
-﻿@if (Visible)
+﻿@inject Demo.SPA.Components.Spinner spinner
+
+@if (spinner.loaderVisibleState)
 {
-<div class="loader">
-    <div class="loader-spinner spinner-border text-success"></div>
-</div>
+    <div class="loader">
+        <div class="loader-spinner spinner-border text-success"></div>
+    </div>
 }
 
 @code{
 
-    [Parameter]
-    public bool Visible { get; set; }
+    protected override void OnInitialized()
+    {
+        spinner.AddSpinnerHandler(() => StateHasChanged());
+    }
 }

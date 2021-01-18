@@ -1,5 +1,6 @@
 ﻿using Blazored.LocalStorage;
 using Demo.Shared.Models.User;
+using Demo.SPA.Components;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,14 +14,18 @@ namespace Demo.SPA.Helpers
   	public class TokenAuthrorizationHandler : DelegatingHandler
 	{
 		private readonly ILocalStorageService _storageService;
+		protected readonly Spinner _spinner;
 
-		public TokenAuthrorizationHandler(ILocalStorageService storageService)
+		public TokenAuthrorizationHandler(ILocalStorageService storageService, Spinner spinner)
 		{
 			_storageService = storageService;
+			_spinner = spinner;
 		}
 
 		protected override async Task<HttpResponseMessage> SendAsync(HttpRequestMessage request, CancellationToken cancellationToken)
 		{
+			_spinner.Show();
+
 			if (await _storageService.ContainKeyAsync("User"))
 			{
 					var userInfo = await _storageService.GetItemAsync<LoginResponse>("User");
@@ -29,10 +34,14 @@ namespace Demo.SPA.Helpers
             }
             else
             {
+				_spinner.Hide();
 				return new HttpResponseMessage(System.Net.HttpStatusCode.Unauthorized);
 			}
 
-			return await base.SendAsync(request, cancellationToken);
+			var response = await base.SendAsync(request, cancellationToken);
+			_spinner.Hide();
+			return response;
+
 		}
 	}
 }
