@@ -16,6 +16,7 @@
 - Flexible and lightweight self contained functionality with UI
 - [Parameter]
 - [CascadingParameter]
+- @typeparam TItem (typed component)
 
 # Virtualize
 ```C#
