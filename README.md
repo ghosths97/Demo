@@ -1,5 +1,3 @@
-
-<image src="https://raw.githubusercontent.com/github/explore/93d8a67084f94b2a444e510199a6e7622e5b09a3/topics/dotnet/dotnet.png" />  
 # Demo  <br>
 dotnet core training demos
 
@@ -22,3 +20,4 @@ https://datalust.co/seq
 | Unit Test			| AAA <br> Mocking				|	
 | Entity Framework Introduction | Entity Framework <br> Repository Pattern	|
 | Razor Pages 			| Introduction					|
+| <a href="https://github.com/mukesh-untk/Demo/tree/main/Demo.SPA#blazor">Blazor</a> | SPA Application using API |
