@@ -35,7 +35,7 @@ namespace Demo.SPA.Providers
                 NotifyAuthenticationStateChanged(Task.FromResult(state));
                 return state;
             }
-
+            
             return new AuthenticationState(new ClaimsPrincipal());
         }   
 

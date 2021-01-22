@@ -28,17 +28,18 @@ namespace Demo.SPA.Helpers
 
 			if (await _storageService.ContainKeyAsync("User"))
 			{
-					var userInfo = await _storageService.GetItemAsync<LoginResponse>("User");
-					var token = userInfo.Token;
-					request.Headers.Add("Authorization", "Bearer " + token);
-            }
-            else
-            {
+				var userInfo = await _storageService.GetItemAsync<LoginResponse>("User");
+				var token = userInfo.Token;
+				request.Headers.Add("Authorization", "Bearer " + token);
+			}
+			else
+			{
 				_spinner.Hide();
 				return new HttpResponseMessage(System.Net.HttpStatusCode.Unauthorized);
 			}
 
 			var response = await base.SendAsync(request, cancellationToken);
+
 			_spinner.Hide();
 			return response;
 

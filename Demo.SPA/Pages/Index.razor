@@ -6,11 +6,58 @@ Welcome to your new app.
 
 <SurveyPrompt Title="How is Blazor working for you?" />
 
-@*<div class="card" style="width: 18rem;">
-    <img src="..." class="card-img-top" alt="...">
-    <div class="card-body">
-        <h5 class="card-title">Card title</h5>
-        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-        <a href="#" class="btn btn-primary">Go somewhere</a>
+<hr/>
+
+<h1>Drag & Drop</h1>
+
+    <div class="dz-flex">
+        <Dropzone Class="flex-container" OnItemDroped="SwapRanks" TItem="Item" Items="Items" Sorter="Sort" InstantReplace="false" ItemWrapperClass="flex-item">
+            <div id="@context.rank" style="height: 100%; background-color: @context.color">
+                <div class="badge badge-light">
+                    @context.rank
+                </div>
+            </div>
+        </Dropzone>
+
     </div>
-</div>*@
+
+
+@code {
+
+    public IList<Item> Sort(IList<Item> items)
+    {
+        return items.OrderBy(i => i.rank).ToList();
+    }
+
+    public bool SwapRanks(Item i1, Item i2)
+    {
+        if (!(i1 == null || i2 == null))
+            (i1.rank, i2.rank) = (i2.rank, i1.rank);
+        return true;
+    }
+
+    public List<Item> Items = new List<Item>()
+    {
+           new Item(1, "red"),
+           new Item(2, "Yello"),
+           new Item(3, "blue"),
+           new Item(4, "white"),
+           new Item(5, "brown")
+    };
+
+    public class Item
+    {
+        public Item(int r, string c)
+        {
+            rank = r;
+            color = c;
+        }
+        public int rank { get; set; }
+        public string color { get; set; }
+
+        public override string ToString()
+        {
+            return $"{color}-{rank}";
+        }
+    }
+}

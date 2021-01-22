@@ -75,3 +75,19 @@ a, .btn-link {
 .blazored-toast-container {
     z-index: 10;
 }
+
+
+.flex-item {
+    width: 100px;
+    height: 100px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    background-color: orange;
+    align-items: center;
+    justify-content: center;
+}
+
+.flex-container {
+    display: flex;
+    background-color: dodgerblue;
+}

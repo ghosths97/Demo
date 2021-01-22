@@ -1,0 +1,51 @@
+﻿@typeparam TItem
+
+<div class="@GetClassesForDropzone()" @ondragover:preventDefault 
+     @ondragover="()=> { }" 
+     @ondragenter:preventDefault 
+     @ondragenter="()=> { }" 
+     @ondrop="()=>OnDrop()" 
+     @ondrop:preventDefault 
+     ondragstart="event.dataTransfer.setData('', event.target.id);">
+
+    @foreach (var item in Sorter == null ? Items : Sorter(Items))
+    {
+
+        if (Items.IndexOf(item) == 0 && MaxItems == null || MaxItems > 1)
+        {
+            <div @ondrop="()=>OnDropItemOnSpacing(0)" 
+                 @ondragenter="()=> ActiveSpacerId =  0" 
+                 @ondragleave="()=> ActiveSpacerId = null" 
+                 class="@GetClassesForSpacing(0)">
+            </div> 
+        }
+
+        <div draggable="@IsItemDragable(item)"
+             @ondragstart="()=>OnDragStart(item)"
+             @ondragend="()=>OnDragEnd()"
+             @ondragenter="()=>OnDragEnter(item)"
+             @ondragleave="()=>OnDragLeave()"
+             class="@GetClassesForDraggable() 
+             @CheckIfItemIsInTransit(item) 
+             @CheckIfItemIsDragTarget(item) 
+             @CheckIfDragOperationIsInProgess() 
+             @CheckIfDraggable(item)">
+        
+            @{ if (ChildContent != null) {
+                    @ChildContent(item);
+                } 
+            }
+
+        </div>
+
+        @if (MaxItems == null || MaxItems > 1) {
+
+            <div @ondrop="()=>OnDropItemOnSpacing(Items.IndexOf(item)+1)" 
+                 @ondragenter="()=> ActiveSpacerId = Items.IndexOf(item)+1" 
+                 @ondragleave="()=> ActiveSpacerId = null" 
+                 class="@CheckIfDragOperationIsInProgess() 
+                 @GetClassesForSpacing(Items.IndexOf(item)+1)">
+            </div>            
+         }
+     }
+</div>
